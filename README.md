@@ -1,1 +1,2 @@
-# MunchM8_v2
+# MunchM8
+MunchM8 App - Node JS Project

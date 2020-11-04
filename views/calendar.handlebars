@@ -1,0 +1,120 @@
+<div class="span12 mr-2">
+    <div class="container">
+        <div id="calendar" class="mt-5 ">
+        </div>
+    </div>
+</div>
+
+
+<div class="d-none uName">{{uName}}</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Event</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/newEvent/{{uName}}" method="POST">
+                    <div class="form-group">
+                        <div class="input-group input-group-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-dark text-light">
+                                    <i class="fas fa-heading"></i>
+                                </span>
+                            </div>
+                            <input type="text" id="title" name="title" class="form-control bg-light text-black"
+                                placeholder="Restaurant">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-dark text-light">
+                                    <i class="fas fa-heading"></i>
+                                </span>
+                            </div>
+                            <input type="datetime-local" id="date" name="date" class="form-control bg-light text-black"
+                                placeholder="Date">
+                        </div>
+                    </div>
+
+
+
+
+
+                    <input type="submit" value="Submit" class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn">
+
+                </form>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Event</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST">
+                    <div class="form-group d-none">
+                        <div class="input-group input-group-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-dark text-light">
+                                    <i class="fas fa-heading"></i>
+                                </span>
+                            </div>
+                            <input type="text" id="id" name="id" class="form-control bg-light text-black updateNumber">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-dark text-light">
+                                    <i class="fas fa-heading"></i>
+                                </span>
+                            </div>
+                            <input type="text" id="title" name="title"
+                                class="form-control bg-light text-black updateTitle" placeholder="Restaurant">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-dark text-light">
+                                    <i class="fas fa-heading"></i>
+                                </span>
+                            </div>
+                            <input type="datetime-local" id="date" name="date" class="form-control bg-light text-black"
+                                placeholder="Date">
+                        </div>
+                    </div>
+
+
+
+
+
+                    <input type="submit" value="Update" class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn"
+                        formaction="/updateEvent/{{uName}}">
+                    <input type="submit" value="Delete"
+                        class="btn btn-danger text-light btn-block btn-lg m-0 mt-2 submit-btn"
+                        formaction="/deleteEvent/{{uName}}">
+
+                </form>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>

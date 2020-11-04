@@ -1,0 +1,42 @@
+<div class="col-lg-4 col-md-12 formSection">
+    <form action="/register" method="POST" class="registerForm">
+        <div class="col-12">
+            <h1>Register Now</h1>
+        </div>
+
+        <ul class="errorMessages">
+        {{#if error}}
+            {{#each errors}}
+                    <li>{{this.message}}</li>
+            {{/each}}
+        {{/if}}    
+        </ul>
+
+        <div class="form-group registerInput">
+            <label for="exampleInputName">Name</label>
+            <input type="text" class="form-control" id="name" name="name">
+            <small id="nameHelp" class="form-text text-muted">Please enter your full name.</small>
+        </div>
+         <div class="form-group registerInput">
+            <label for="exampleInputUsername">Username</label>
+            <input type="text" class="form-control" id="username" name="username">
+        </div>
+        <div class="form-group registerInput">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group registerInput">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+          <div class="form-group registerInput">
+            <label for="exampleInputPassword1">Confirm Password</label>
+            <input type="password" class="form-control" id="password2" name="password2">
+        </div>
+        <button type="submit" class="btn btn-primary registerSubmit">Submit</button>
+        <div class="col-12 registerRedirect">
+            <a href="/login">Already registered? Login here</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,447 @@
+body {
+    font-family: "Lato", Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+}
+
+.mainBanner {
+    background-image: linear-gradient(to bottom, rgb(242, 110, 53), rgba(169, 14, 14, 0.73)),url(https://www.adrwealth.com.au/wp-content/uploads/2019/02/How_to_balance_healthy_eating_and_a_social_life.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 110vh;
+}
+
+.mainLogo {
+    margin-left: 20%;
+}
+
+.logoSection {
+    text-align: right;
+}
+
+.mainNav {
+    padding-top: 1rem;
+    padding-bottom: 7rem;
+    width: 100%;
+}
+
+.navbar-toggler {
+    display: flex;
+    margin-left: auto;
+}
+
+.navbar-nav {
+    margin-right: 30%;
+}
+
+.navbar-collapse li {
+    padding-left: 0.5rem;
+}
+
+
+.slogan {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slogan h1 {
+    font-size: 4rem;
+    text-align: center;
+    color: #fff;
+    font-weight: 300;
+    margin-bottom: 5rem;
+}
+
+.bannerContent {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.formSection {
+    border-top: 0.7rem solid #09C6AB;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0, 0.15);
+    background-color: white;
+    height: 50%;
+    text-align: center;
+    border-radius: 1rem;
+    width: 80%;
+    margin-bottom: 3rem;
+}
+
+.filterForm {
+    background-color: white;
+    padding: 1rem;
+    color: grey;
+}
+
+.filterForm h1 {
+    color: black;
+    text-align: center;
+    font-size: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+.form-control {
+    text-align: center !important;
+}
+
+.filterInput {
+    text-align: center;
+}
+
+.introSection h1 {
+    padding: 3rem;
+    font-weight: 300;
+    font-size: 4rem;
+    text-align: center;
+    color: white;
+}
+
+.introSection {
+    background-color: #27227D;
+    padding-bottom: 4rem;
+}
+
+.introSection p {
+    text-align: center;
+    color: white;
+    font-weight: 300;
+    font-size: 1.2rem;
+    padding-bottom: 1rem;
+}
+
+.intro h2 {
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    color: white;
+    letter-spacing: 0.5rem;
+    font-weight: 400;
+}
+
+.introPara {
+    font-size: 1.3rem !important;
+}
+
+.appIntro {
+    padding-top: 5rem;
+}
+
+.intro {
+    display: block;
+    text-align: center;
+}
+
+.introSteps {
+    margin: 3rem 0rem;
+}
+
+.nav-link {
+    margin-bottom: 1rem;
+}
+
+.aboutUsSection {
+    padding: 3rem;
+    color: grey;
+}
+
+.aboutUs {
+    text-align: center;
+    padding: 1rem;
+}
+
+.aboutUs h3 {
+    padding-top: 5rem;
+    font-weight: bold;
+    font-size: 1rem;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+}
+
+.footer p {
+    font-size: 0.8rem;
+    text-align: center;
+    color: grey;
+}
+
+.footer {
+    height: 30vh;
+    border-top: 0.5px solid grey;
+    padding-top: 2rem;
+}
+
+.secondPageBanner {
+    height: 35rem;
+    background-image: linear-gradient(to bottom, rgb(242, 110, 53), rgba(169, 14, 14, 0.73)),url(https://www.hdnicewallpapers.com/Walls/Big/Food%20and%20Drinks/Friends_Eating_French_Fries_and_Burger_4K_Wallpaper.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.secPageHeader {
+    text-align: center;
+    font-size: 4rem;
+    font-weight: 300;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.6rem;
+}
+
+.secPageHeadContainer {
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.secPageMain {
+    height: 60rem;
+    background-color: white;
+}
+
+.mainProfile {
+    height: 70%;
+    width: 70%;
+    border: 1px solid white;
+    background-color: white;
+}
+
+.mainProfileOuter {
+    border: 1px solid white;
+}
+
+.miniCalendar {
+    height: 60rem;
+    border-left: 1px solid white;
+}
+
+
+.card-deck {
+    margin: 10% 10% 10% 10%;
+    box-shadow: 10px 10px 10px 10px rgba(0,0,0, 0.15);
+}
+
+.profileHeader {
+    text-transform: uppercase;
+    color: grey;
+    font-size: 1.5rem;
+    letter-spacing: 0.5rem;
+    font-weight: 400;
+}
+
+.card-title{
+    text-align: center;
+    font-size: 1rem;
+    letter-spacing: 0.5rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: grey;
+}
+
+.mockCalendar {
+    background-color: white;
+    width: 70vh; 
+    height: 80vh;
+    text-align: center;
+    margin: 25% 25% 25% 25%;
+}
+
+.loginForm {
+    background-color: white;
+    padding: 0.5rem;
+    color: grey;
+}
+
+.loginForm h1 {
+    color: black;
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+
+.loginInput {  
+    margin: 0;
+    padding-top: 0.5rem;
+}
+
+.loginSubmit {
+    margin: 1rem 0rem;
+}
+
+.loginRedirect {
+    padding-bottom: 1rem;
+}
+
+// 
+.registerForm {
+    background-color: white;
+    padding: 0.5rem;
+    color: grey;
+}
+
+.registerForm h1 {
+    color: black;
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+
+.registerInput {  
+    margin: 0;
+    padding-top: 0.5rem;
+}
+
+.registerSubmit {
+    margin: 1rem 0rem;
+}
+
+.registerRedirect {
+    padding-bottom: 1rem;
+}
+
+.errorMessages li {
+    font-size: 0.9rem;
+    color: red;
+    text-align: center; 
+}
+
+.errorMessage {
+    font-size: 1rem;
+    color: red;
+    text-align: center; 
+}
+
+.successMessage {
+    font-size: 1rem;
+    color: rgb(8, 154, 8);
+    text-align: center; 
+}
+
+:root {
+    --dark-color-a: #27227d;
+    --dark-color-b: #27227d;
+    --light-color: #e6e9ff;
+    --success-color: #5cb85c;
+    --error-color: #d9534f;
+  }
+  
+  ul {
+    list-style: none;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  /* Chat Page */
+  
+  #users {
+    padding: 0px;
+  }
+  
+  .chat-container {
+    max-width: 50rem;
+    background: #fff;
+    margin: 30px auto;
+    overflow: hidden;
+  }
+  
+  .chat-main {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+  }
+  
+  .chat-sidebar {
+    background: var(--dark-color-b);
+    color: #fff;
+    padding: 20px 20px 60px;
+    overflow-y: scroll;
+  }
+  
+  .chat-sidebar h2 {
+    font-size: 15px;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .chat-sidebar h3 {
+    margin-bottom: 15px;
+  }
+  
+  .chat-sidebar ul li {
+    padding: 10px 0;
+  }
+  
+  .chat-messages {
+    padding: 30px;
+    min-height: 400px;
+    max-height: 500px;
+    overflow-y: scroll;
+  }
+  
+  .chat-messages .message {
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: var(--light-color);
+    border-radius: 5px;
+    overflow-wrap: break-word;
+  }
+  
+  .chat-messages .message .meta {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--dark-color-b);
+    opacity: 0.7;
+    margin-bottom: 7px;
+  }
+  
+  .chat-messages .message .meta span {
+    color: #777;
+  }
+  
+  .chat-form-container {
+    padding: 20px 30px;
+    background-color: var(--dark-color-a);
+  }
+  
+  .chat-form-container form {
+    display: flex;
+  }
+  
+  .chat-form-container input[type="text"] {
+    font-size: 16px;
+    padding: 5px;
+    height: 40px;
+    flex: 1;
+  }
+  
+  @media (max-width: 700px) {
+    .chat-main {
+      display: block;
+    }
+  
+    .chat-sidebar {
+      display: none;
+    }
+  }  
+
+
+@media screen and (max-width: 990px) {  
+    .mainLogo {
+       margin-left: 33%;
+       width: 9rem;
+
+    }
+
+    .mainNav {
+        padding-bottom: 2rem;
+    }
+
+    .slogan h1 {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+
+}
+

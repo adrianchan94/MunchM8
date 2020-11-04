@@ -1,0 +1,30 @@
+<div class="col-lg-4 col-md-12 formSection">
+    <form action="/login" method="POST" class="loginForm">
+        <div class="col-12">
+            <h1>Log-In</h1>
+        </div>
+
+                    <p class="successMessage">{{messages.success}}</p> 
+
+                    <p class="errorMessage">{{messages.error}}</p>  
+
+                     <p class="successMessage">{{messages.success_msg}}</p> 
+
+        <div class="form-group loginInput">
+            <div class="col-12">
+                <label for="exampleInputUsername">Username</label>
+                <input type="text" class="form-control" id="username" name="username">
+            </div>
+        </div>
+        <div class="form-group loginInput">
+            <div class="col-12">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" name="password" id="password">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary loginSubmit">Submit</button>
+        <div class="col-12 loginRedirect">
+            <a href="/register">Register</a>
+        </div>
+    </form>
+</div>
