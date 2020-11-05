@@ -4,7 +4,9 @@ let x
 let today = new Date().toISOString().slice(0, 10)
 
 
+
 window.onload =  async function () {
+
   scrollTo(0, 0);
   cUser = document.querySelector(".uName").innerHTML
   await getData()
@@ -29,9 +31,11 @@ window.onload =  async function () {
       right: 'dayGridMonth,listMonth'
     },
     dateClick: function(info) {
+      console.log("Hello")
       $("#exampleModal").modal('toggle')
     },
     eventClick: function(info) {
+      console.log("Hey")
       document.querySelector(".updateTitle").value = info.event.title;
       document.querySelector(".updateNumber").value = info.event._def.publicId;
       $("#exampleModal2").modal('toggle')
@@ -42,7 +46,15 @@ window.onload =  async function () {
   });
   
   calendar.render();
+
 };
+
+//edit profile 
+
+$("#editButton").click(()=> {
+  console.log("modal")
+  $("#exampleModal3").modal('toggle');
+})
 
 //list.js
 var options = {
@@ -70,10 +82,6 @@ async function  getData() {
      
     });
 }
-
-
-
-
 
 // document.addEventListener('DOMContentLoaded', function() {
 //   console.log(x)

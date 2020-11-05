@@ -238,6 +238,17 @@ body {
     color: grey;
 }
 
+.editProfile {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.editProfile a {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
 .mockCalendar {
     background-color: white;
     width: 70vh; 
