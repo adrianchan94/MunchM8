@@ -1,5 +1,5 @@
 // Find the location with autocomplete
-var inputPlaceSearch = document.querySelector('#inputPlaceSearch');
+var inputPlaceSearch = document.getElementById('inputPlaceSearch');
 var autocomplete;
 
 function initAutocomplete() {
@@ -23,14 +23,14 @@ function getLatLng() {
 };
 
 // Submit form
-var filterForm = document.querySelector('#filterForm');
+var filterForm = document.getElementById('filterForm');
 filterForm.addEventListener('submit', function(event) {
   event.preventDefault();
   getInput();
   console.log("Form has been submitted!");
 
   // Clear form after store data into localStorage
-  var form = document.querySelector('#filterForm');
+  var form = document.getElementById('filterForm');
   form.reset(); 
 
   // Redirect after submit
@@ -40,19 +40,14 @@ filterForm.addEventListener('submit', function(event) {
 });
 
 function getInput() {
-  var locationVal = document.querySelector('#inputPlaceSearch').value;
-  var cuisineVal = document.querySelector('#cuisine').value;
-  var radiusVal = document.querySelector('#destination').value;
-  var dateVal = document.querySelector('#date-start').value;
+  var locationVal = document.getElementById('inputPlaceSearch').value;
+  var cuisineVal = document.getElementById('cuisine').value;
+  var radiusVal = document.getElementById('destination').value;
+  var dateVal = document.getElementById('date-start').value;
 
   // Store input to localStorage
   localStorage.setItem('location', locationVal);
   localStorage.setItem('cuisine', cuisineVal);
   localStorage.setItem('radius', radiusVal);
   localStorage.setItem('date', dateVal);
-};
-
-  // Clear form after reload
-function ClearForm(){
-  document.querySelector('#filterForm').reset();
 };
