@@ -178,7 +178,8 @@ body {
     background-attachment: fixed;
 }
 
-.secPageHeader {
+.secPageHeader,
+.placesHeader {
     text-align: center;
     font-size: 4rem;
     font-weight: 300;
@@ -187,7 +188,8 @@ body {
     letter-spacing: 0.6rem;
 }
 
-.secPageHeadContainer {
+.secPageHeadContainer,
+.placesContainer {
     height: 50%;
     display: flex;
     justify-content: center;
@@ -426,7 +428,31 @@ body {
     height: 40px;
     flex: 1;
   }
-  
+
+/* places Search */
+.placesSearch {
+    height: 35rem;
+    background-image: linear-gradient(to bottom, rgb(242, 110, 53), rgba(169, 14, 14, 0.73)), url(https://images.unsplash.com/photo-1560532806-dbb46d88b494?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.placesSection {
+    color: white;
+    font-weight: 300;
+    font-size: 1.2rem;
+    background-color: #27227D;
+}
+
+.mapsContainer {
+    height: 50rem;
+    border-left: 1px solid white;
+}
+
+#map {
+    height: 100%;
+}
+
   @media (max-width: 700px) {
     .chat-main {
       display: block;

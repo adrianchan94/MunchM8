@@ -17,11 +17,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js"></script>
 
     <!--Stylesheet-->
+    <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="/css/style.css">
+    <!--Google Places-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu0QPnJ9eKMaHa8Lmjc6wYkaCrk0rURkI&callback=initAutocomplete&libraries=places&v=weekly"
+      defer>
+    </script>
 </head>
 
 
-<body>
+<body onload="ClearForm()">
     <div class="mainBanner">
         <div class="mainNav">
             <nav class="navbar navbar-expand-lg navbar-dark">
@@ -168,6 +175,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.min.js"></script>
     <script src="/js/func.js"></script>
     <script src="/js/chatroom.js"></script>
+    <script src="js/index.js"></script>
 </body>
 
 </html>
