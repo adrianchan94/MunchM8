@@ -58,9 +58,9 @@ app.get('/', checkNotAuthenticated, (req, res) => {
     res.render('index');
 })
 
-app.get('/main/:username', checkNotAuthenticated, (req, res) => { 
+app.get('/main/:username', checkNotAuthenticated, (req, res) => {
     const uName = req.params.username
-    res.render('index', {uName});
+    res.render('index', { uName });
 })
 
 app.get('/login', checkAuthenticated, (req, res) => {
@@ -174,11 +174,30 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 app.get('/secondary/:name', checkNotAuthenticated, (req, res) => {
+
     const uName = req.params.name;
-    res.render('calendar', {
-        layout: 'secondary',
-        uName
-    });
+    console.log(uName)
+
+    let query = db.select('*').from('users').where("username", uName);
+
+    query
+        .then((rows) => {
+
+
+            let info = rows[0]
+
+            console.log(info.about_me)
+            console.log(info)
+
+            res.render('calendar', {
+                layout: 'secondary',
+                uName,
+                info
+            })
+        })
+        .catch((err) => {
+            throw err;
+        })
 });
 
 //socket.io chat
@@ -240,6 +259,47 @@ io.on("connection", (socket) => {
     });
 });
 
+//edit profile 
+
+app.post("/editProfile/:name", (req, res) => {
+    const uName = req.params.name;
+
+    const { profileInterests, profileAboutMe, coverPhotoURL } = req.body;
+
+   return db("users")
+        .where("username", "=", uName)
+        .update({
+            about_me: profileAboutMe,
+            interests: profileInterests,
+            cover_photo_URL: coverPhotoURL
+        }).then(()=>{
+            let query = db.select('*').from('users').where("username", uName);
+
+           return query
+                .then((rows) => {
+        
+        
+                    let info = rows[0]
+                    console.log(info)
+        
+        
+                    console.log(profileInterests);
+                    console.log(profileAboutMe);
+                    console.log(coverPhotoURL);
+        
+                    res.render('calendar', {
+                        layout: 'secondary',
+                        uName,
+                        info
+                    })
+                })
+        })
+
+    
+
+})
+
+
 //calendar
 
 app.get("/uCalendar", function (req, res) {
@@ -260,7 +320,7 @@ app.post("/newEvent/:name", (req, res) => {
             start: date,
             editor: uName,
         })
-        .then(res.redirect("back"));
+        .then(res.redirect(`/secondary/${uName}`));
 });
 
 //update 

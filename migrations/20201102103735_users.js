@@ -7,6 +7,11 @@ exports.up = function(knex) {
     table.string('username').unique().notNullable();
     table.string('email').unique().notNullable();
     table.string('password').notNullable();
+    table.string('about_me');
+    table.string('interests');
+    table.integer('rating');
+    table.integer('get_rated');
+    table.string('cover_photo_URL')
   })
 };
 

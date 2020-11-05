@@ -1,26 +1,18 @@
 <div class="row">
     <div class="col-lg-6 col-md-12">
         <div class="card-deck">
-            <div class="card">
+            <div class="card cardFrame">
                 <div class="card-header bg-transparent border-success">
-                    <h1 class="profileHeader text-center">Jane Smith</h1>
+                    <h1 class="profileHeader text-center">{{info.name}}</h1>
                 </div>
-                <img class="card-img-top" src="/images/jane_smith.jpg" alt="Card image cap">
+                <img class="card-img-top coverPhotoFrame" src="{{info.cover_photo_URL}}" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">About Me</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in
-                        to additional content. This content is a little bit longer.
-                        Dignissimos asperiores vitae velit veniam totam fuga
-                        molestias accusamus alias autem provident. Odit ab aliquam dolor eius.
-                        molestias accusamus alias autem provident. Odit ab aliquam dolor eius.
-                        to additional content. This content is a little bit longer.
+                    <p class="card-text">
+                        {{info.about_me}}
                     </p>
                     <h5 class="card-title">Interests</h5>
-                    <ul>
-                        <li>Knitting</li>
-                        <li>Yelling at store managers</li>
-                        <li>Driving kids to soccer practice</li>
-                    </ul>
+                    <p>{{info.interests}}</p>
                     <div class="editProfile">
                         <a class="btn btn-primary" id="editButton" role="button">Edit Profile</a>
                     </div>
@@ -29,15 +21,15 @@
             </div>
         </div>
     </div>
-    
- <div class="col-lg-6 col-md-12">
-    <div class="span12 mr-2">
-        <div class="container">
-            <div id="calendar" class="mt-5 ">
+
+    <div class="col-lg-6 col-md-12">
+        <div class="span12 mr-2">
+            <div class="container">
+                <div id="calendar" class="mt-5 ">
+                </div>
             </div>
         </div>
     </div>
- </div>
 </div>
 
 <div class="d-none uName">{{uName}}</div>
@@ -52,7 +44,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/newEvent/{{uName}}" method="POST">
+                <form method="POST">
                     <div class="form-group">
                         <div class="input-group input-group-lg">
                             <div class="input-group-prepend">
@@ -71,8 +63,8 @@
                                     <i class="fas fa-heading"></i>
                                 </span>
                             </div>
-                            <input type="datetime-local" id="date" name="date" class="form-control bg-light text-black"
-                                placeholder="Date">
+                            <input type="datetime-local" id="date" name="date"
+                                class="form-control bg-light text-black newETime" placeholder="Date">
                         </div>
                     </div>
 
@@ -80,7 +72,7 @@
 
 
 
-                    <input type="submit" value="Submit" class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn">
+                    <input type="submit" value="Submit" formaction="/newEvent/{{uName}}"class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn">
 
                 </form>
             </div>
@@ -227,7 +219,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST">
+                <form action="/editProfile/{{uName}}" method="POST">
                     <div class="form-group d-none">
                         <div class="input-group input-group-lg">
                             <div class="input-group-prepend">
@@ -238,7 +230,7 @@
                             <input type="text" id="id" name="id" class="form-control bg-light text-black updateNumber">
                         </div>
                     </div>
-                    <label for="profileAboutMe">About Me</label>
+                    <label for="profileAboutMe">About Me:</label>
                     <div class="form-group">
                         <div class="input-group input-group-lg">
                             <div class="input-group-prepend">
@@ -246,10 +238,11 @@
                                     <i class="fas fa-heading"></i>
                                 </span>
                             </div>
-                            <textarea class="form-control" id="profileAboutMe" rows="3"></textarea>
+                            <textarea class="form-control editProfInfo" name="profileAboutMe" id="profileAboutMe"
+                                rows="5">{{info.about_me}}</textarea>
                         </div>
                     </div>
-                    <label for="profileInterests">Interests</label>
+                    <label for="profileInterests">Interests:</label>
                     <div class="form-group">
                         <div class="input-group input-group-lg">
                             <div class="input-group-prepend">
@@ -257,16 +250,19 @@
                                     <i class="fas fa-heading"></i>
                                 </span>
                             </div>
-                            <textarea class="form-control" id="profileinterests" rows="3"></textarea>
+                            <textarea class="form-control editProfInfo" name="profileInterests" id="profileInterests"
+                                rows="3">{{info.interests}}</textarea>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="coverPhoto">Cover Photo URL</label>
+                        <input type="text" class="form-control" id="coverPhotoURL" name="coverPhotoURL"
+                            placeholder="https://imgur.com/upload" value="{{info.cover_photo_URL}}">
                     </div>
 
 
-
-
-
-                    <input type="submit" value="Update" class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn"
-                        formaction="/updateEvent/{{uName}}">
+                    <input type="submit" value="Update"  
+                        class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn" />
                 </form>
             </div>
             <div class="modal-footer">

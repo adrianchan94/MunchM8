@@ -32,6 +32,7 @@ window.onload =  async function () {
     },
     dateClick: function(info) {
       console.log("Hello")
+      document.querySelector(".newETime").value = `${info.dateStr}T19:30`
       $("#exampleModal").modal('toggle')
     },
     eventClick: function(info) {
