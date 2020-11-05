@@ -351,6 +351,11 @@ app.get('/find-a-table', (req, res) => {
     res.render('find-a-table', { layout: 'secondary' });
 })
 
+// Search places
+app.get('/places', (req, res) => {
+    res.render('googleMaps', {layout: 'placesSearch '})
+});
+
 server.listen(3000, () => {
     console.log("Server is running on port 3000");
 })
