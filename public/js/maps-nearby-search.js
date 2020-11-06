@@ -119,6 +119,7 @@ function createMarkers(places) {
 
     // Add click listener to each marker
     google.maps.event.addListener(marker, 'click', () => {
+      console.log("fuckyou")
       let request = {
         placeId: place.place_id,
         fields: [

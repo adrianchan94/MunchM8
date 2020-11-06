@@ -54,13 +54,13 @@ app.use(passport.session());
 
 app.use(flash());
 
-app.get('/', checkNotAuthenticated, (req, res) => {
-    res.render('index');
-})
-
 app.get('/main/:username', checkNotAuthenticated, (req, res) => {
     const uName = req.params.username
     res.render('index', { uName });
+})
+
+app.get('/', checkNotAuthenticated, (req, res) => {
+    res.render('index');
 })
 
 app.get('/login', checkAuthenticated, (req, res) => {

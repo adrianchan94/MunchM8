@@ -1,5 +1,5 @@
 // Find the location with autocomplete
-var inputPlaceSearch = document.getElementById('inputPlaceSearch');
+var inputPlaceSearch = document.querySelector('#inputPlaceSearch');
 var autocomplete;
 
 function initAutocomplete() {
