@@ -1,6 +1,83 @@
-
 <!-- Map appears here -->
 <div id="map"></div>
 
 <!-- Search a map -->
-<script src="js/maps-nearby-search.js"></script>
+<script src="/js/maps-nearby-search.js"></script>
+
+<!--Modal-->
+
+<div class="modal fade" id="createResModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Host A Table</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST">
+                    <div class="form-group d-none">
+                        <div class="input-group input-group-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-dark text-light">
+                                    <i class="fas fa-heading"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Host Name:</label>
+                        <input type="text" class="form-control" name="hostName" id="hostName" value="{{name}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Restaurant Name</label>
+                        <input type="text" class="form-control" id="restName" name="restName">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Restaurant address</label>
+                        <input type="text" class="form-control" id="restAddress" name="restAddress">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Maximum No. Of Guests</label>
+                        <select class="form-control" name="guests" id="guests">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Date & Time</label>
+                        <input type="datetime-local" id="dateTime" name="dateTime"
+                            class="form-control bg-light text-black" placeholder="Date">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Preferred Language</label>
+                        <select class="form-control" name="guests" id="guests">
+                            <option>Cantonese</option>
+                            <option>English</option>
+                            <option>Mandarin</option>
+                            <option>No Preference</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Table Description</label>
+                        <textarea class="form-control editProfInfo" name="tableDesc" id="tableDesc" rows="5"></textarea>
+                    </div>
+
+
+
+                    <input type="submit" value="Submit Table"
+                        class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn" />
+                </form>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>

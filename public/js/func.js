@@ -57,6 +57,8 @@ $("#editButton").click(()=> {
   $("#exampleModal3").modal('toggle');
 })
 
+
+
 //list.js
 var options = {
   valueNames: [ 'name', 'born' ]

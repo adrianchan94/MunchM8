@@ -54,13 +54,13 @@ app.use(passport.session());
 
 app.use(flash());
 
+app.get('/', checkNotAuthenticated, (req, res) => {
+    res.render('index');
+})
+
 app.get('/main/:username', checkNotAuthenticated, (req, res) => {
     const uName = req.params.username
     res.render('index', { uName });
-})
-
-app.get('/', checkNotAuthenticated, (req, res) => {
-    res.render('index');
 })
 
 app.get('/login', checkAuthenticated, (req, res) => {
@@ -352,12 +352,21 @@ app.get('/find-a-table', (req, res) => {
 })
 
 // Search places
-app.get('/places', (req, res) => {
-    res.render('googleMaps', {layout: 'placesSearch '})
+app.get('/places/:name', (req, res) => {
+    const uName = req.params.name;
+
+    let query = db.select('*').from('users').where("username", uName);
+
+    query
+    .then((rows) => {
+        let name = rows[0].name;
+
+        res.render('googleMaps', {layout: 'placesSearch', uName, name})
+    })
+    
 });
 
 server.listen(3000, () => {
     console.log("Server is running on port 3000");
 })
-
 

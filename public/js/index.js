@@ -1,6 +1,7 @@
 // Find the location with autocomplete
 var inputPlaceSearch = document.querySelector('#inputPlaceSearch');
 var autocomplete;
+var uName = document.querySelector(".uName").innerHTML
 
 function initAutocomplete() {
   autocomplete = new google.maps.places.Autocomplete(
@@ -35,7 +36,7 @@ filterForm.addEventListener('submit', function(event) {
 
   // Redirect after submit
   var pathname = 'places'
-  var url = `/${pathname}`
+  var url = `/${pathname}/${uName}`
   window.location.href = url;
 });
 
@@ -51,3 +52,15 @@ function getInput() {
   localStorage.setItem('radius', radiusVal);
   localStorage.setItem('date', dateVal);
 };
+
+//create resturaunt modal
+
+// $("#createTabBtn").click(()=> {
+//   console.log("modal")
+//   $("#createResModal").modal('toggle');
+// })
+
+$('.createTabBtn').on('click', function(event){
+  console.log(event.target)
+  console.log('?')
+})

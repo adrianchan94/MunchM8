@@ -5,6 +5,7 @@ const lngStorage = parseFloat(userStorage["longitude"]);
 const radiusStorage = parseInt(userStorage["radius"]);
 const cuisineStorage = userStorage["cuisine"];
 
+
 // Initialize variables
 let pos;
 let map;
@@ -13,6 +14,13 @@ let infoWindow;
 let currentInfoWindow;
 let service;
 let infoPane;
+
+let array = [];
+
+document.querySelector(".randomButton").addEventListener('click', function () {
+  $("#createResModal").modal('toggle');
+})
+
 
 // Open Maps
 function initMap() {
@@ -119,7 +127,7 @@ function createMarkers(places) {
 
     // Add click listener to each marker
     google.maps.event.addListener(marker, 'click', () => {
-      console.log("fuckyou")
+      
       let request = {
         placeId: place.place_id,
         fields: [
@@ -166,8 +174,22 @@ function showDetails(placeResult, marker, status) {
     if (placeResult.formatted_phone_number) phone = placeResult.formatted_phone_number;
     if (placeResult.website) website = placeResult.website;
 
+
+    array = [];
+    
+    let obj = {
+      name: placeResult.name,
+      photo: placeResult.photos[0], 
+      rating: placeResult.rating,
+      formatted_address: placeResult.formatted_address,
+      phone: placeResult.formatted_phone_number,
+      website: placeResult.website
+    }
+
+    array.push(obj)
+
     placeInfowindow.setContent(
-      '<div style="color:black;">'+
+      '<div id= "123" style="color:black;">'+
       // Add the photo, if there is one
       `<img src=${primaryPhoto.getUrl()} 
       style="width: 100%; height: auto; max-height: 166px; display: block;">` +
@@ -191,13 +213,22 @@ function showDetails(placeResult, marker, status) {
       `<a href=${website}>${website}</a>` +
       '</div>'
       );
-  
+
+      console.log(array)
+
+      document.querySelector("#restName").value = array[0].name; 
+      document.querySelector("#restAddress").value = array[0].formatted_address; 
+
+
+
+    document.querySelector(".randomButton").classList.remove('d-none');
+
     placeInfowindow.open(marker.map, marker);
+    
     currentInfoWindow.close();
     currentInfoWindow = placeInfowindow;
   } else {
     console.log('showDetails failed: ' + status);
   }
 };
-
 
