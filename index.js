@@ -352,8 +352,13 @@ app.get('/find-a-table', (req, res) => {
 })
 
 // Search places
-app.get('/places', (req, res) => {
+app.get('/places', checkAuthenticated, (req, res) => {
     res.render('googleMaps', {layout: 'placesSearch '})
+});
+
+// Confirmation
+app.get('/', checkAuthenticated, (req, res) => {
+    res.render('')
 });
 
 server.listen(3000, () => {
