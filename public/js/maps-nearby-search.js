@@ -14,6 +14,7 @@ let infoWindow;
 let currentInfoWindow;
 let service;
 let infoPane;
+let today = new Date().toISOString().slice(0, 10)
 
 let array = [];
 
@@ -192,7 +193,7 @@ function showDetails(placeResult, marker, status) {
       '<div id= "123" style="color:black;">'+
       // Add the photo, if there is one
       `<img src=${primaryPhoto.getUrl()} 
-      style="width: 100%; height: auto; max-height: 166px; display: block;">` +
+      style="width: 100%; height: auto; max-height: 250px; display: block;">` +
       '<strong>' + 
       placeResult.name + 
       '</strong><br>' + 
@@ -215,11 +216,11 @@ function showDetails(placeResult, marker, status) {
       );
 
       console.log(array)
+      console.log(today)
 
       document.querySelector("#restName").value = array[0].name; 
       document.querySelector("#restAddress").value = array[0].formatted_address; 
-
-
+      document.querySelector("#dateTime").value = `${today}T19:30`
 
     document.querySelector(".randomButton").classList.remove('d-none');
 

@@ -1,7 +1,7 @@
 // Find the location with autocomplete
 var inputPlaceSearch = document.querySelector('#inputPlaceSearch');
 var autocomplete;
-var uName = document.querySelector(".uName").innerHTML
+var uName = document.querySelector(".uName").innerHTML;
 
 function initAutocomplete() {
   autocomplete = new google.maps.places.Autocomplete(

@@ -1,19 +1,138 @@
-<div class="span12 mr-2">
-    <div class="container">
-        <div class="chat-container">
+<div class="row">
 
-            <main class="chat-main">
-                <div class="chat-sidebar">
-                    <h3><i class="fas fa-users"></i> Users</h3>
-                    <ul id="users"></ul>
+    <div class="col-lg-6 col-md-6">
+        <div class="cardDeckFrame">
+            <div class="card-deck">
+                <div class="card cardFrame">
+                    <div class="card-header bg-dark text-white border-success">
+                        <h1 class="profileHeader text-center">{{info.name}}</h1>
+                    </div>
+                    <div class="bg-secondary cardImgFrame">
+                        <div class="cardImgBlock">
+                            <img class="card-img-top coverPhotoFrame rounded" src="/images/defaultCover.jpg"
+                                alt="No Photo Yet">
+                        </div>
+                    </div>
+
+                    <div class="bg-secondary text-white card-body">
+                        <h5 class="card-title card-header bg-dark text-white">About Me</h5>
+                        <div class="cardInfo">
+
+                            {{#if missing_about_me}}
+                            <p class="card-text font-italic text-center">
+                                Please enter a brief description of yourself here.
+                            </p>
+                            {{else}}
+                            <p class="card-text">
+                                {{info.about_me}}
+                            </p>
+                            {{/if}}
+                        </div>
+                        <h5 class="card-title card-header bg-dark text-white">Interests</h5>
+                        <div class="cardInfo">
+
+                            {{#if missing_interests}}
+                            <p class="card-text font-italic text-center">
+                                Please list some of your interests here.
+                            </p>
+                            {{else}}
+                            <p class="card-text">
+                            <p>{{info.interests}}</p>
+                            </p>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="bg-secondary editProfile">
+                        <a class="btn btn-primary" id="editButton" role="button">Edit Profile</a>
+                    </div>
                 </div>
-                <div class="chat-messages"></div>
-            </main>
-            <div class="chat-form-container">
-                <form id="chat-form">
-                    <input id="msg" type="text" placeholder="Enter Message" required autocomplete="off" />
-                    <button class="btn btn-info"><i class="fas fa-paper-plane"></i> Send</button>
-                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="col-md-6 col-lg-6">
+        <div class="cardDeckFrame">
+            <div class="card-deck">
+                <div class="container">
+                    <div class="chat-container">
+
+                        <main class="chat-main">
+                            <div class="chat-sidebar">
+                                <h3><i class="fas fa-users"></i></h3>
+                                <ul id="users"></ul>
+                            </div>
+                            <div class="chat-messages"></div>
+                        </main>
+                        <div class="chat-form-container">
+                            <form id="chat-form">
+                                <input id="msg" type="text" placeholder="Enter Message" required autocomplete="off" />
+                                <button class="btn btn-info"><i class="fas fa-paper-plane"></i> Send</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cardDeckFrame">
+            <div class="card-deck">
+                <div class="text-white card-body">
+                    <h5 class="card-title card-header bg-dark text-white">Confirmed Participants</h5>
+                    <div class="cardInfo">
+                        <p>{{messages.already_joined}}</p>
+                        <ul class="list-group text-dark col-12">
+                            <li class="list-group-item"><b>Host:</b>{{filter.host_name}}</li>
+                        </ul>
+                        <ul class="list-group text-dark col-12">
+                            <li class="list-group-item">Guests:
+                        {{#if guest_1}}
+                        {{filter.guest_1}},
+                        {{/if}}
+                         {{#if guest_2}}
+                        {{filter.guest_2}},
+                        {{/if}}
+                         {{#if guest_3}}
+                        {{filter.guest_3}},
+                        {{/if}}
+                         {{#if guest_4}}
+                        {{filter.guest_4}},
+                        {{/if}}
+                         {{#if guest_5}}
+                        {{filter.guest_5}}
+                        {{/if}}
+                        </ul>
+                        <div class="row">
+                        <div class="col-md-6">
+                            <div class="join_chat ml-auto">
+                                <form action="/chat/confirm/{{uName}}" method="POST">
+                                    <div class="form-group d-none">
+                                        <div class="input-group input-group-lg">
+                                            <input type="text" id="username" name="username"
+                                                class="form-control bg-light text-black" placeholder="Username"
+                                                value="{{uName}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group d-none">
+                                        <div class="input-group input-group-lg">
+                                            <input type="text" id="room" name="room"
+                                                class="form-control bg-light text-black" placeholder="Room"
+                                                value="{{roomId}}">
+                                        </div>
+                                    </div>
+                                    <input type="submit" value="tableConfirm"
+                                        class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn">
+
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn-secondary btn bg-dark text-light btn-block btn-lg m-0">Cancel</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

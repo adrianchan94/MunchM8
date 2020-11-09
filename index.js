@@ -34,6 +34,7 @@ const {
     userLeave,
     getRoomUsers,
 } = require("./utils/users");
+const { RSA_NO_PADDING } = require('constants');
 
 
 app.use(express.static('public'))
@@ -55,7 +56,7 @@ app.use(passport.session());
 app.use(flash());
 
 app.get('/', checkNotAuthenticated, (req, res) => {
-    res.render('index');
+    res.redirect('/login')
 })
 
 app.get('/main/:username', checkNotAuthenticated, (req, res) => {
@@ -169,7 +170,7 @@ function checkNotAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-
+    req.flash('login_msg', 'Please login to continue');
     res.redirect("/login");
 }
 
@@ -182,31 +183,188 @@ app.get('/secondary/:name', checkNotAuthenticated, (req, res) => {
 
     query
         .then((rows) => {
-
-
             let info = rows[0]
 
-            console.log(info.about_me)
-            console.log(info)
+            const { cover_photo_URL, about_me, interests } = info
 
-            res.render('calendar', {
-                layout: 'secondary',
-                uName,
-                info
-            })
+            if (!cover_photo_URL) {
+
+                console.log("missing info")
+
+                res.render('calendar', {
+                    layout: 'secondary',
+                    uName,
+                    info,
+                    missingURL: true
+                })
+            } else if (!about_me) {
+
+                res.render('calendar', {
+                    layout: 'secondary',
+                    uName,
+                    info,
+                    missing_about_me: true
+                })
+
+            } else if (!interests) {
+                res.render('calendar', {
+                    layout: 'secondary',
+                    uName,
+                    info,
+                    missing_interests: true
+                })
+            } else {
+
+                console.log(info.about_me)
+                console.log(info)
+
+                res.render('calendar', {
+                    layout: 'secondary',
+                    uName,
+                    info
+                })
+
+            }
         })
         .catch((err) => {
             throw err;
         })
 });
 
+app.get('/secondary', checkNotAuthenticated, (req, res) => {
+    res.flash()
+})
+
 //socket.io chat
 
-app.get('/chat/:name', (req, res) => {
+app.get('/chat/:name/:id', (req, res) => {
     const uName = req.params.name;
 
-    res.render('chat', { layout: 'secondary' });
+    const roomId = req.params.id;
+
+    db.from('pending_tables')
+    .innerJoin('pending_tables_guests', 'pending_tables.id', 'pending_tables_guests.pending_tables_id')
+    .then((data) => {
+
+        let filter = data.filter((rowfilter) => {
+            return (rowfilter.pending_tables_id == roomId)
+        })[0];
+
+        console.log(filter)
+
+        let g1 = true;
+        let g2 = true; 
+        let g3 = true; 
+        let g4 = true; 
+        let g5 = true; 
+
+            if (filter.guest_1 == null) {
+                g1 = false;
+            };
+    
+            if (filter.guest_2 == null || filter.guest_2 == "not_available") {
+                g2 = false;
+            };
+    
+            if (filter.guest_3 == null || filter.guest_3 == "not_available") {
+                g3 = false;
+            };
+    
+            if (filter.guest_4 == null || filter.guest_4 == "not_available") {
+                g4 = false;
+            };
+    
+            if (filter.guest_5 == null || filter.guest_5 == "not_available") {
+                g5 = false;
+            };
+
+        res.render('chat', { layout: 'secondary', filter, uName, roomId, guest_1: g1,
+         guest_2: g2, guest_3: g3, guest_4: g4, guest_5: g5});
+    })
+
 });
+
+app.post('/chat/confirm/:username', (req, res) => {
+
+    const uName = req.params.name;
+
+    const {username, room} = req.body;
+
+    let query = db.select('*').from("pending_tables_guests")
+
+    query
+    .then((data) => {
+
+        // let filter = data.filter((rowfilter) => {
+        //     return (rowfilter.guest_1 == username || rowfilter.guest_2 == username || rowfilter.guest_3 == username|| 
+        //         rowfilter.guest_4 == username || rowfilter.guest_5 == username || rowfilter.hostname == username)
+        // })
+        // if (filter.length > 0) {
+        //     req.flash("already_joined", "You have already joined this room")
+        //     res.redirect("back")
+
+        let filter = data.filter((rowfilter) => {
+            return (rowfilter.pending_tables_id == room)
+        })[0];
+     
+        if (filter.guest_1 == username || filter.guest_2 == username || filter.guest_3 == username|| 
+        filter.guest_4 == username || filter.guest_5 == username || filter.hostname == username){
+            req.flash("already_joined", "You have already joined this room")
+            res.redirect("back")
+
+         } else if(filter.guest_1 == null){
+                db("pending_tables_guests")
+                .where("pending_tables_id", "=", room)
+                .update({
+                    guest_1: username
+                })
+                .then(
+                    res.redirect("back")
+                )
+            } else if (filter.guest_2 == null){
+                db("pending_tables_guests")
+                .where("pending_tables_id", "=", room)
+                .update({
+                    guest_2: username
+                })
+                .then(
+                    res.redirect("back")
+                )
+            } else if (filter.guest_3 == null){
+                db("pending_tables_guests")
+                .where("pending_tables_id", "=", room)
+                .update({
+                    guest_3: username
+                })
+                .then(
+                    res.redirect("back")
+                )
+            } else if (filter.guest_4 == null){
+                db("pending_tables_guests")
+                .where("pending_tables_id", "=", room)
+                .update({
+                    guest_4: username
+                })
+                .then(
+                    res.redirect("back")
+                )
+            } else if (filter.guest_5 == null){
+                db("pending_tables_guests")
+                .where("pending_tables_id", "=", room)
+                .update({
+                    guest_5: username
+                })
+                .then(
+                    res.redirect("back")
+                )
+            } else {
+                req.flash("full_room", "Sorry, this room is now full.")
+                res.redirect(`/places/${uName}`)
+            }
+
+    })
+    
+})
 
 io.on("connection", (socket) => {
     socket.on("joinRoom", ({ username, room }) => {
@@ -266,27 +424,24 @@ app.post("/editProfile/:name", (req, res) => {
 
     const { profileInterests, profileAboutMe, coverPhotoURL } = req.body;
 
-   return db("users")
+    return db("users")
         .where("username", "=", uName)
         .update({
             about_me: profileAboutMe,
             interests: profileInterests,
             cover_photo_URL: coverPhotoURL
-        }).then(()=>{
+        }).then(() => {
             let query = db.select('*').from('users').where("username", uName);
 
-           return query
+            return query
                 .then((rows) => {
-        
-        
+
                     let info = rows[0]
-                    console.log(info)
-        
-        
-                    console.log(profileInterests);
-                    console.log(profileAboutMe);
-                    console.log(coverPhotoURL);
-        
+
+                    if (!info.cover_photo_URL) {
+
+                    }
+
                     res.render('calendar', {
                         layout: 'secondary',
                         uName,
@@ -295,8 +450,96 @@ app.post("/editProfile/:name", (req, res) => {
                 })
         })
 
-    
 
+
+})
+
+//creating tables 
+app.post("/create_table/:name", (req, res) => {
+    const uName = req.params.name;
+
+    const { hostName, restName, restAddress, max_guests, prefLanguage, current_guests, dateTime, tableDesc } = req.body;
+
+    let dt = dateTime.replace("T"," ")
+
+
+    db("pending_tables")
+        .insert({
+            host_name: hostName,
+            restaurant_name: restName,
+            restaurant_address: restAddress,
+            date_and_time: dt,
+            preferred_language: prefLanguage,
+            number_of_guests: current_guests,
+            max_number_guests: max_guests,
+            description: tableDesc
+        })
+        .returning('*')
+        .then((data) => {
+            let table_id = data[0].id
+
+            let max_guests = data[0].max_number_guests
+
+            switch (max_guests) {
+                case 2: 
+
+                db("pending_tables_guests")
+                .insert({
+                    pending_tables_id: table_id,
+                    host_name: hostName,
+                    guest_3: "not_available",
+                    guest_4: "not_available",
+                    guest_5: "not_available"
+                }).then((rows) => {
+                req.flash('table_created', "Table has been created")
+                res.redirect(`/places/${uName}`)
+                });
+                break;
+
+                case 3: 
+
+                db("pending_tables_guests")
+                .insert({
+                    pending_tables_id: table_id,
+                    host_name: hostName,
+                    guest_4: "not_available",
+                    guest_5: "not_available"
+                }).then((rows) => {
+                req.flash('table_created', "Table has been created")
+                res.redirect(`/places/${uName}`)
+                });
+                break;
+
+                case 4:
+
+                 db("pending_tables_guests")
+                    .insert({
+                        pending_tables_id: table_id,
+                        host_name: hostName,
+                        guest_5: "not_available"
+                    }).then((rows) => {
+                    req.flash('table_created', "Table has been created")
+                    res.redirect(`/places/${uName}`)
+                    });
+                break;
+    
+                case 5: 
+
+                db("pending_tables_guests")
+                    .insert({
+                        pending_tables_id: table_id,
+                        host_name: hostName
+                    }).then((rows) => {
+                    req.flash('table_created', "Table has been created")
+                    res.redirect(`/places/${uName}`)
+                    });
+                break;
+            }
+            
+        })
+        .catch((err) => {
+            throw err;
+        })
 })
 
 
@@ -358,12 +601,27 @@ app.get('/places/:name', (req, res) => {
     let query = db.select('*').from('users').where("username", uName);
 
     query
-    .then((rows) => {
-        let name = rows[0].name;
+        .then((rows) => {
+            let name = rows[0].name;
 
-        res.render('googleMaps', {layout: 'placesSearch', uName, name})
-    })
-    
+            let table = [];
+
+            db.select("*")
+                .from("pending_tables")
+                .then((data) => {
+                    for (let i = 0; i < data.length; i++) {
+                        data[i].uName = uName
+                    }
+                    table = data
+                    res.render('googleMaps', { 
+                        layout: 'placesSearch', uName, name, table 
+                    })
+                });
+        })
+        .catch((err) => {
+            throw err;
+        })
+
 });
 
 server.listen(3000, () => {

@@ -31,7 +31,7 @@ window.onload =  async function () {
       right: 'dayGridMonth,listMonth'
     },
     dateClick: function(info) {
-      console.log("Hello")
+      console.log(info)
       document.querySelector(".newETime").value = `${info.dateStr}T19:30`
       $("#exampleModal").modal('toggle')
     },

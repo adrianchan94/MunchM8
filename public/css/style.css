@@ -60,7 +60,7 @@ body {
 }
 
 .formSection {
-    border-top: 0.7rem solid #09C6AB;
+    border-top: 0.7rem solid #586fcd;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0, 0.15);
     background-color: white;
     height: 50%;
@@ -188,10 +188,6 @@ body {
     align-items: center;
 }
 
-.secPageMain {
-    height: 60rem;
-    background-color: white;
-}
 
 .mainProfile {
     height: 70%;
@@ -209,22 +205,94 @@ body {
     border-left: 1px solid white;
 }
 
+.cardImgBlock {
+    padding-top: 1rem;
+    min-width: 30vw;
+    margin: 0 auto;
+    position: relative;
+}
+
+.card-body {
+    padding: 0;
+}
+
+.table-card-body {
+    min-height: 30vh;
+    max-height: auto;
+}
+
+.card {
+    border: 0;
+}
+
+.cardImgFrame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardImgBlock img {
+    border: 10px solid white;
+    max-width: 30vw;
+    border-radius:5px;
+    box-shadow:0 0 10px rgba(0,0,0,0.63);
+}
+
+.cardDeckFrame {
+    margin: 3rem;
+}
 
 .card-deck {
-    box-shadow: 10px 10px 10px 10px rgba(0,0,0, 0.15);
+    background-color: #FECC98;
+    border-radius: 15px;
+}
+
+.calendarFrame {
+    background-color: white;
+    padding: 2rem;
+}
+
+.calendarOuter {
+    padding: 3rem;
+}
+
+.calendarLoaded {
+    background-color: white;
+}
+
+.profileSec {
+    background-color:#27227d;
+    
 }
 
 .profileHeader {
     text-transform: uppercase;
-    color: grey;
-    font-size: 1.5rem;
-    letter-spacing: 0.5rem;
+    font-size: 2rem;
+    letter-spacing: 1.6rem;
     font-weight: 400;
+}
+
+.calendarHeader {
+    border-bottom: 1px solid grey;
+    padding-bottom: 1rem;
+}
+
+.calendarHeader h1 {
+        text-transform: uppercase;
+        color: grey;
+        font-size: 2rem;
+        letter-spacing: 1.6rem;
+        font-weight: 400;
+        text-align: center;
+}
+
+.card-header {
+    border: 0;
 }
 
 .card-title{
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.3rem;
     letter-spacing: 0.5rem;
     font-weight: 400;
     text-transform: uppercase;
@@ -236,21 +304,29 @@ body {
     overflow: hidden;
 }
 
-.cardFrame {
-    overflow: hidden;
+
+.cardInfo {
+    padding: 1.2rem;
+    margin: 1rem;
 }
 
-.editProfile {
+.chatSubmit {
+    max-width: 34vw; 
+}
+
+
+.table-card-header {
+    border-radius: 20px 20px 0px 0px !important;
     padding: 1rem;
+}
+
+
+.editProfile {
+    border-top: 1px solid grey;
+    padding: 1rem 0rem;
     display: flex;
     justify-content: center;
 }
-
-.editProfile a {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-}
-
 
 .mockCalendar {
     background-color: white;
@@ -290,7 +366,11 @@ body {
     padding-bottom: 1rem;
 }
 
-// 
+.list-group {
+    float: left;
+    padding-bottom: 1rem;
+}
+
 .registerForm {
     background-color: white;
     padding: 0.5rem;
@@ -336,6 +416,22 @@ body {
 .successMessage {
     font-size: 1rem;
     color: rgb(8, 154, 8);
+    text-align: center; 
+}
+
+.secPageMain {
+    background-color: #27227d;
+}
+
+.loginMessage {
+    font-size: 1rem;
+    color: red;
+    text-align: center; 
+}
+
+.tableCreated {
+    font-size: 1rem;
+    color: green;
     text-align: center; 
 }
 
@@ -438,6 +534,7 @@ body {
     flex: 1;
   }
 
+
 /* places Search */
 .placesSearch {
     height: 35rem;
@@ -451,9 +548,48 @@ body {
     font-size: 1.2rem;
 }
 
+.pendingTables {
+    background-color: #27227D;
+    padding: 1rem 2rem;
+    max-height: 800px;
+    overflow: scroll;
+
+}
+
+.pendingTables h1 {
+    text-transform: uppercase;
+    color: grey;
+    font-size: 2rem;
+    letter-spacing: 1.6rem;
+    font-weight: 400;
+    text-align: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid grey;
+}
+
+.mapsBox {
+    padding: 0;
+    margin: 0;
+}
+
 .mapsContainer {
     height: 50rem;
     border-left: 1px solid white;
+}
+
+.loadingContainer {
+    background: transparent url(https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif) no-repeat center center;
+}
+
+.randomButton {
+    border-radius: 5px;
+    margin: 0 auto;
+    display: block;
+}
+
+.pendingTableInfo {
+    padding-top: 1rem; 
+    text-align: center;
 }
 
 #map {

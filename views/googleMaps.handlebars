@@ -1,10 +1,85 @@
-<!-- Map appears here -->
-<div id="map"></div>
+<div class="placesSection">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-5 pendingTables">
+                <div class="card-deck">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1 class="card-title">Pending Tables</h1>
+                            <p class="pendingTableInfo"><i>Please select a resturaunt on the map to host a table
+                                    there.</i></p>
+                            <button class="btn-primary randomButton d-none">Host A Table</button>
+                            <p class="tableCreated">{{messages.table_created}}</p>
+                            <p class="fullRoom">{{messages.full_room}}</p>
+                            {{#each table}}
+                            <div class="text-white card-body table-card-body">
+                                <h5 class="card-title table-card-header bg-dark text-white">{{this.restaurant_name}}</h5>
+                                <div class="cardInfo">
+                                    <ul class="list-group text-dark col-6">
+                                        <li class="list-group-item"><b>Host:</b> {{this.host_name}}</li>
+                                        <li class="list-group-item"><b>No. of Guests:</b>
+                                            {{this.number_of_guests}}/{{this.max_number_guests}}</li>
+                                    </ul>
+                                    <ul class="list-group text-dark col-6">
+                                        <li class="list-group-item "><b>Preferred Language:</b>
+                                            {{this.preferred_language}}</li>
+                                        <li class="list-group-item "><b>Date & Time:</b> {{this.date_and_time}}</li>
+                                    </ul>
+                                    <ul class="list-group text-dark col-12">
+                                        <li class="list-group-item"><b>Description:</b> {{this.description}}</li>
 
-<!-- Search a map -->
-<script src="/js/maps-nearby-search.js"></script>
+                                    </ul>
+                                    <ul class="list-group text-dark col-12">
+                                        <li class="list-group-item"><b>Address:</b> {{this.restaurant_address}}</li>
+                                    </ul>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="join_chat ml-auto">
+                                                <form action="/chat/{{this.uName}}/{{this.id}}">
+                                                    <div class="form-group d-none">
+                                                        <div class="input-group input-group-lg">
+                                                            <input type="text" id="username" name="username"
+                                                                class="form-control bg-light text-black"
+                                                                placeholder="Username" value="{{this.uName}}">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group d-none">
+                                                        <div class="input-group input-group-lg">
+                                                            <input type="text" id="room" name="room"
+                                                                class="form-control bg-light text-black"
+                                                                placeholder="Room" value="{{this.id}}">
+                                                        </div>
+                                                    </div>
+                                                    <input type="submit" value="Join"
+                                                        class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn chatSubmit">
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 mapsBox">
+                <div class="loadingContainer">
+                    <div class="mapsContainer">
+                        <!-- Map appears here -->
+                        <div id="map"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!--Modal-->
+
 
 <div class="modal fade" id="createResModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -15,8 +90,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
-                <form method="POST">
+                <form action="/create_table/{{uName}}" method="POST">
                     <div class="form-group d-none">
                         <div class="input-group input-group-lg">
                             <div class="input-group-prepend">
@@ -40,13 +116,16 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Maximum No. Of Guests</label>
-                        <select class="form-control" name="guests" id="guests">
-                            <option>1</option>
+                        <select class="form-control" name="max_guests" id="max_guests">
                             <option>2</option>
                             <option>3</option>
                             <option>4</option>
                             <option>5</option>
-                            <option>6</option>
+                        </select>
+                    </div>
+                    <div class="form-group d-none">
+                        <label for="exampleFormControlSelect1">Current No. Of Guests</label>
+                        <input type="number" class="form-control" id="current_guests" name="current_guests" value="1">
                         </select>
                     </div>
                     <div class="form-group">
@@ -56,7 +135,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Preferred Language</label>
-                        <select class="form-control" name="guests" id="guests">
+                        <select class="form-control" name="prefLanguage" id="prefLanguage">
                             <option>Cantonese</option>
                             <option>English</option>
                             <option>Mandarin</option>
@@ -81,3 +160,6 @@
         </div>
     </div>
 </div>
+
+<!-- Search a map -->
+<script src="/js/maps-nearby-search.js"></script>

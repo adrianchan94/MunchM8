@@ -1,31 +1,75 @@
-<div class="row">
+<div class="row profileSec">
     <div class="col-lg-6 col-md-12">
-        <div class="card-deck">
-            <div class="card cardFrame">
-                <div class="card-header bg-transparent border-success">
-                    <h1 class="profileHeader text-center">{{info.name}}</h1>
-                </div>
-                <img class="card-img-top coverPhotoFrame" src="{{info.cover_photo_URL}}" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">About Me</h5>
-                    <p class="card-text">
-                        {{info.about_me}}
-                    </p>
-                    <h5 class="card-title">Interests</h5>
-                    <p>{{info.interests}}</p>
-                    <div class="editProfile">
+        <div class="cardDeckFrame">
+            <div class="card-deck">
+                <div class="card cardFrame">
+                    <div class="card-header bg-dark text-white border-success">
+                        <h1 class="profileHeader text-center">{{info.name}}</h1>
+                    </div>
+                    <div class="bg-secondary cardImgFrame">
+                        <div class="cardImgBlock">
+                            {{#if missingURL}}
+                            <img class="card-img-top coverPhotoFrame rounded" src="/images/defaultCover.jpg"
+                                alt="No Photo Yet">
+                            {{else}}
+                            <img class="card-img-top coverPhotoFrame rounded" src="{{info.cover_photo_URL}}"
+                                alt="Card image">
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="bg-secondary text-white card-body">
+                        <h5 class="card-title card-header bg-dark text-white">About Me</h5>
+                        <div class="cardInfo">
+
+                            {{#if missing_about_me}}
+                            <p class="card-text font-italic text-center">
+                                Please enter a brief description of yourself here.
+                            </p>
+                            {{else}}
+                            <p class="card-text">
+                                {{info.about_me}}
+                            </p>
+                            {{/if}}
+                        </div>
+                        <h5 class="card-title card-header bg-dark text-white">Interests</h5>
+                        <div class="cardInfo">
+
+                            {{#if missing_interests}}
+                            <p class="card-text font-italic text-center">
+                                Please list some of your interests here.
+                            </p>
+                            {{else}}
+                            <p class="card-text">
+                            <p>{{info.interests}}</p>
+                            </p>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="bg-secondary editProfile">
                         <a class="btn btn-primary" id="editButton" role="button">Edit Profile</a>
                     </div>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                 </div>
             </div>
         </div>
+
     </div>
 
     <div class="col-lg-6 col-md-12">
-        <div class="span12 mr-2">
-            <div class="container">
-                <div id="calendar" class="mt-5 ">
+        <div class="calendarOuter">
+            <div class="card-deck">
+                <div class="card calendarFrame">
+                    <div class="calendarHeader">
+                        <h1>Calendar</h1>
+                    </div>
+                    <div class="loadingContainer">
+                        <div class="span12 mr-2 calendarLoaded">
+                            <div class="container">
+                                <div id="calendar" class="mt-5 ">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,7 +116,8 @@
 
 
 
-                    <input type="submit" value="Submit" formaction="/newEvent/{{uName}}"class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn">
+                    <input type="submit" value="Submit" formaction="/newEvent/{{uName}}"
+                        class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn">
 
                 </form>
             </div>
@@ -238,8 +283,13 @@
                                     <i class="fas fa-heading"></i>
                                 </span>
                             </div>
+                            {{#if missing_about_me}}
+                            <textarea class="form-control editProfInfo" name="profileAboutMe" id="profileAboutMe"
+                                rows="5"> Please enter a brief description of yourself here. </textarea>
+                            {{else}}
                             <textarea class="form-control editProfInfo" name="profileAboutMe" id="profileAboutMe"
                                 rows="5">{{info.about_me}}</textarea>
+                            {{/if}}
                         </div>
                     </div>
                     <label for="profileInterests">Interests:</label>
@@ -250,8 +300,14 @@
                                     <i class="fas fa-heading"></i>
                                 </span>
                             </div>
+
+                            {{#if missing_interests}}
+                            <textarea class="form-control editProfInfo" name="profileInterests" id="profileInterests"
+                                rows="3">Please list some of your interests here.</textarea>
+                            {{else}}
                             <textarea class="form-control editProfInfo" name="profileInterests" id="profileInterests"
                                 rows="3">{{info.interests}}</textarea>
+                            {{/if}}
                         </div>
                     </div>
                     <div class="form-group">
@@ -261,7 +317,7 @@
                     </div>
 
 
-                    <input type="submit" value="Update"  
+                    <input type="submit" value="Update"
                         class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn" />
                 </form>
             </div>

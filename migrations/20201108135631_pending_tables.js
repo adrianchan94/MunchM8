@@ -4,9 +4,10 @@ exports.up = function(knex) {
         table.increments('id').primary().unsigned();
     
         table.string('host_name').notNullable();
-        table.string('resturaunt_name').notNullable();
-        table.string('resturaunt_address').notNullable();
+        table.string('restaurant_name').notNullable();
+        table.string('restaurant_address').notNullable();
         table.integer('number_of_guests').notNullable();
+        table.integer('max_number_guests').notNullable();
         table.string('date_and_time').notNullable();
         table.string('preferred_language').notNullable();
         table.string('description');
