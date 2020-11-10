@@ -181,7 +181,8 @@ body {
 }
 
 .secPageHeadContainer,
-.placesContainer {
+.placesContainer,
+.confirmContainer {
     height: 50%;
     display: flex;
     justify-content: center;
@@ -461,6 +462,52 @@ body {
 #map {
     height: 100%;
 }
+
+/* Confirmation Page */
+.confirmSection {
+    font-weight: 300;
+    font-size: 1.2rem;
+}
+
+.emailHeader,
+.ratingHeader {
+    position: relative;
+    margin: 1rem 0rem;
+}
+
+.emailHeader h3,
+.ratingHeader h3 {
+    text-align: center;
+}
+
+.emailForm,
+.ratingForm {
+    margin: 1rem 0rem;
+}
+
+.emailForm input[type="text"],
+select.form-control {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.emailForm input[type="text"]:focus,
+select.form-control:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.emailButton,
+.ratingButton {
+    text-align: center;
+}
+
+/* select*/
+
 
   @media (max-width: 700px) {
     .chat-main {

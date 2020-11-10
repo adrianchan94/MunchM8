@@ -13,6 +13,7 @@ const socketio = require("socket.io");
 const server = http.createServer(app);
 const io = socketio(server);
 const formatMessage = require('./utils/messages');
+const nodemailer = require("nodemailer");
 
 const initializePassport = require("./passportConfig")
 initializePassport(passport);
@@ -35,6 +36,9 @@ const {
     getRoomUsers,
 } = require("./utils/users");
 
+// Body Parser Middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(express.static('public'))
 const botName = "ChatCord Bot";
@@ -352,13 +356,101 @@ app.get('/find-a-table', (req, res) => {
 })
 
 // Search places
-app.get('/places', checkAuthenticated, (req, res) => {
-    res.render('googleMaps', {layout: 'placesSearch '})
+app.get('/places', (req, res) => {
+    res.render('googleMaps', {layout: 'placesSearch '});
 });
 
 // Confirmation
-app.get('/', checkAuthenticated, (req, res) => {
-    res.render('')
+app.get("/confirmation/:name", async(req, res) => {
+    const uName = req.params.name;
+    const uEmail = await db.select("id","email").from("users");
+    res.render("email", { layout: "confirmation", uName, uEmail});
+});
+
+app.post("/send/:name", async(req, res) => {
+    const uName = req.params.name;
+
+    const { attendees, scheduled, restaurant, address, email } = req.body;
+    const strEmail = email.toString();
+
+
+    const output = async (aEmail) => {
+        // Query each username for send the individual link
+        for(let i = 0; i < aEmail.length; i++) {
+            const queryUsername = await db.select("username").from("users").where("email", "=", aEmail[i])
+            const username = queryUsername[0].username;
+            const tags = `
+            <p>You have a new Confirmation</p>
+            <h3>Complete Details</h3>
+            <ul>  
+                <li>Attendees: ${attendees}</li>
+                <li>Scheduled time: ${scheduled}</li>
+                <li>Restaurant details: ${restaurant}</li>
+                <li>Address: ${address}</li>
+            </ul>
+            <table width="100%" cellspacing="0" cellpadding="0">
+            <tr>
+                <td>
+                    <table cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td style="border-radius: 2px;" bgcolor="#ED2939">
+                            <a href="http://127.0.0.1:3000/review-rating/${username}/" target="_blank 
+                                style="padding: 8px 12px; 
+                                border: 1px solid #ED2939; 
+                                border-radius: 2px;
+                                font-family: Helvetica, Arial, sans-serif;
+                                font-size: 14px; 
+                                color: #ffffff; 
+                                text-decoration: none; 
+                                font-weight: bold; 
+                                display: inline-block;">
+                            Request a Review
+                            </a>
+                        </td>
+                    </tr>
+                    </table>
+                </td>
+            </tr>
+            </table>
+            <h3>Thank You.</h3>`
+            return tags;
+        };
+    };
+
+    const eachTag = await output(email)
+    console.log(eachTag);
+    
+    const transporter = nodemailer.createTransport({
+        host: process.env.SMTP,
+        port: process.env.PORT,
+        secure: false,
+        auth: {
+          user: process.env.EMAIL,
+          pass: process.env.PASSWORD,
+        },
+    });
+
+    let mailOptions = {
+        from: `${process.env.EMAIL}`,
+        to: `${strEmail}`,
+        subject: "👻  MuchM8 Confirmation 👻 ",
+        text: "✔ Hello, ",
+        html: output()
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        };
+        console.log('Message sent: %s', info.messageId);
+    });
+
+    res.redirect(`/confirmation/${uName}/`)
+});
+
+// Review & Rating
+app.get("/review-rating/:name", async(req, res) => {
+    res.render("rating", { layout: "review"});
 });
 
 server.listen(3000, () => {
