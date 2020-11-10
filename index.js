@@ -13,6 +13,9 @@ const socketio = require("socket.io");
 const server = http.createServer(app);
 const io = socketio(server);
 const formatMessage = require('./utils/messages');
+const schedule = require('node-schedule');
+
+let nowaday = new Date().toISOString().slice(0, 10).replace(/-/gi,"")
 
 const initializePassport = require("./passportConfig")
 initializePassport(passport);
@@ -35,6 +38,7 @@ const {
     getRoomUsers,
 } = require("./utils/users");
 const { RSA_NO_PADDING } = require('constants');
+const { now } = require('moment');
 
 
 app.use(express.static('public'))
@@ -237,133 +241,282 @@ app.get('/secondary', checkNotAuthenticated, (req, res) => {
 
 //socket.io chat
 
-app.get('/chat/:name/:id', (req, res) => {
+app.get('/chat/:name/:realName/:id', (req, res) => {
     const uName = req.params.name;
-
+    const realName = req.params.realName
     const roomId = req.params.id;
 
     db.from('pending_tables')
-    .innerJoin('pending_tables_guests', 'pending_tables.id', 'pending_tables_guests.pending_tables_id')
-    .then((data) => {
+        .innerJoin('pending_tables_guests', 'pending_tables.id', 'pending_tables_guests.pending_tables_id')
+        .then((data) => {
 
-        let filter = data.filter((rowfilter) => {
-            return (rowfilter.pending_tables_id == roomId)
-        })[0];
+            let filter = data.filter((rowfilter) => {
+                return (rowfilter.pending_tables_id == roomId)
+            })[0];
 
-        console.log(filter)
+            console.log(filter)
 
-        let g1 = true;
-        let g2 = true; 
-        let g3 = true; 
-        let g4 = true; 
-        let g5 = true; 
+            let g1 = true;
+            let g2 = true;
+            let g3 = true;
+            let g4 = true;
+            let g5 = true;
 
             if (filter.guest_1 == null) {
                 g1 = false;
             };
-    
+
             if (filter.guest_2 == null || filter.guest_2 == "not_available") {
                 g2 = false;
             };
-    
+
             if (filter.guest_3 == null || filter.guest_3 == "not_available") {
                 g3 = false;
             };
-    
+
             if (filter.guest_4 == null || filter.guest_4 == "not_available") {
                 g4 = false;
             };
-    
+
             if (filter.guest_5 == null || filter.guest_5 == "not_available") {
                 g5 = false;
             };
 
-        res.render('chat', { layout: 'secondary', filter, uName, roomId, guest_1: g1,
-         guest_2: g2, guest_3: g3, guest_4: g4, guest_5: g5});
-    })
+            res.render('chat', {
+                layout: 'secondary', filter, uName, realName, roomId, guest_1: g1,
+                guest_2: g2, guest_3: g3, guest_4: g4, guest_5: g5
+            });
+        })
 
 });
+
+app.post('/chat/exit/:name', (req, res) => {
+
+    const uName = req.params.name;
+    const { username, room } = req.body;
+
+    db("pending_tables_guests")
+        .select('*')
+        .where("pending_tables_id", room)
+        .then((data) => {
+
+            let users = data[0]
+
+            if (username == data[0].guest_1) {
+                db("pending_tables_guests")
+                    .select("*")
+                    .where("pending_tables_id", room)
+                    .update({
+                        guest_1: null
+                    })
+                    .then(
+                        res.redirect(`/places/${uName}`)
+                    )
+            } else if (username == data[0].guest_2) {
+                db("pending_tables_guests")
+                    .select("*")
+                    .where("pending_tables_id", room)
+                    .update({
+                        guest_2: null
+                    })
+                    .then(
+                        res.redirect(`/places/${uName}`)
+                    )
+            } else if (username == data[0].guest_3) {
+                db("pending_tables_guests")
+                    .select("*")
+                    .where("pending_tables_id", room)
+                    .update({
+                        guest_3: null
+                    })
+                    .then(
+                        res.redirect(`/places/${uName}`)
+                    )
+            } else if (username == data[0].guest_4) {
+                db("pending_tables_guests")
+                    .select("*")
+                    .where("pending_tables_id", room)
+                    .update({
+                        guest_4: null
+                    })
+                    .then(
+                        res.redirect(`/places/${uName}`)
+                    )
+            } else if (username == data[0].guest_5) {
+                db("pending_tables_guests")
+                    .select("*")
+                    .where("pending_tables_id", room)
+                    .update({
+                        guest_5: null
+                    })
+                    .then(
+                        res.redirect(`/places/${uName}`)
+                    )
+            } else {
+                req.flash("not_in_room", "You have not joined this room yet")
+                res.redirect(`/places/${uName}`)
+            }
+
+
+            // let x = Object.values(data[0]);
+
+            // let index = x.indexOf(username);
+
+            // let key = (Object.keys(data[0]))[index]
+
+        })
+})
 
 app.post('/chat/confirm/:username', (req, res) => {
 
     const uName = req.params.name;
 
-    const {username, room} = req.body;
+    const { username, room } = req.body;
 
     let query = db.select('*').from("pending_tables_guests")
 
     query
-    .then((data) => {
+        .then((data) => {
 
-        // let filter = data.filter((rowfilter) => {
-        //     return (rowfilter.guest_1 == username || rowfilter.guest_2 == username || rowfilter.guest_3 == username|| 
-        //         rowfilter.guest_4 == username || rowfilter.guest_5 == username || rowfilter.hostname == username)
-        // })
-        // if (filter.length > 0) {
-        //     req.flash("already_joined", "You have already joined this room")
-        //     res.redirect("back")
+            // let filter = data.filter((rowfilter) => {
+            //     return (rowfilter.guest_1 == username || rowfilter.guest_2 == username || rowfilter.guest_3 == username|| 
+            //         rowfilter.guest_4 == username || rowfilter.guest_5 == username || rowfilter.hostname == username)
+            // })
+            // if (filter.length > 0) {
+            //     req.flash("already_joined", "You have already joined this room")
+            //     res.redirect("back")
 
-        let filter = data.filter((rowfilter) => {
-            return (rowfilter.pending_tables_id == room)
-        })[0];
-     
-        if (filter.guest_1 == username || filter.guest_2 == username || filter.guest_3 == username|| 
-        filter.guest_4 == username || filter.guest_5 == username || filter.hostname == username){
-            req.flash("already_joined", "You have already joined this room")
-            res.redirect("back")
+            let filter = data.filter((rowfilter) => {
+                return (rowfilter.pending_tables_id == room)
+            })[0];
 
-         } else if(filter.guest_1 == null){
+            if (filter.guest_1 == username || filter.guest_2 == username || filter.guest_3 == username ||
+                filter.guest_4 == username || filter.guest_5 == username || filter.hostname == username) {
+                req.flash("already_joined", "You have already joined this room")
+                res.redirect("back")
+
+            } else if (filter.guest_1 == null) {
                 db("pending_tables_guests")
-                .where("pending_tables_id", "=", room)
-                .update({
-                    guest_1: username
-                })
-                .then(
-                    res.redirect("back")
-                )
-            } else if (filter.guest_2 == null){
+                    .where("pending_tables_id", "=", room)
+                    .update({
+                        guest_1: username
+                    })
+                    .then(
+                        db("pending_tables")
+                            .where("id", "=", room)
+                            .then((data) => {
+                                let x = data[0].number_of_guests + 1;
+
+                                console.log(x)
+
+                                db("pending_tables")
+                                    .where("id", "=", room)
+                                    .update({
+                                        number_of_guests: x
+                                    }).then(
+                                        res.redirect("back")
+                                    )
+                            })
+                    )
+            } else if (filter.guest_2 == null) {
                 db("pending_tables_guests")
-                .where("pending_tables_id", "=", room)
-                .update({
-                    guest_2: username
-                })
-                .then(
-                    res.redirect("back")
-                )
-            } else if (filter.guest_3 == null){
+                    .where("pending_tables_id", "=", room)
+                    .update({
+                        guest_2: username
+                    })
+                    .then(
+                        db("pending_tables")
+                            .where("id", "=", room)
+                            .then((data) => {
+                                let x = data[0].number_of_guests + 1;
+
+                                console.log(x)
+
+                                db("pending_tables")
+                                    .where("id", "=", room)
+                                    .update({
+                                        number_of_guests: x
+                                    }).then(
+                                        res.redirect("back")
+                                    )
+                            })
+                    )
+            } else if (filter.guest_3 == null) {
                 db("pending_tables_guests")
-                .where("pending_tables_id", "=", room)
-                .update({
-                    guest_3: username
-                })
-                .then(
-                    res.redirect("back")
-                )
-            } else if (filter.guest_4 == null){
+                    .where("pending_tables_id", "=", room)
+                    .update({
+                        guest_3: username
+                    })
+                    .then(
+                        db("pending_tables")
+                            .where("id", "=", room)
+                            .then((data) => {
+                                let x = data[0].number_of_guests + 1;
+
+                                console.log(x)
+
+                                db("pending_tables")
+                                    .where("id", "=", room)
+                                    .update({
+                                        number_of_guests: x
+                                    }).then(
+                                        res.redirect("back")
+                                    )
+                            })
+                    )
+            } else if (filter.guest_4 == null) {
                 db("pending_tables_guests")
-                .where("pending_tables_id", "=", room)
-                .update({
-                    guest_4: username
-                })
-                .then(
-                    res.redirect("back")
-                )
-            } else if (filter.guest_5 == null){
+                    .where("pending_tables_id", "=", room)
+                    .update({
+                        guest_4: username
+                    })
+                    .then(
+                        db("pending_tables")
+                            .where("id", "=", room)
+                            .then((data) => {
+                                let x = data[0].number_of_guests + 1;
+
+                                console.log(x)
+
+                                db("pending_tables")
+                                    .where("id", "=", room)
+                                    .update({
+                                        number_of_guests: x
+                                    }).then(
+                                        res.redirect("back")
+                                    )
+                            })
+                    )
+            } else if (filter.guest_5 == null) {
                 db("pending_tables_guests")
-                .where("pending_tables_id", "=", room)
-                .update({
-                    guest_5: username
-                })
-                .then(
-                    res.redirect("back")
-                )
+                    .where("pending_tables_id", "=", room)
+                    .update({
+                        guest_5: username
+                    })
+                    .then(
+                        db("pending_tables")
+                            .where("id", "=", room)
+                            .then((data) => {
+                                let x = data[0].number_of_guests + 1;
+
+                                console.log(x)
+
+                                db("pending_tables")
+                                    .where("id", "=", room)
+                                    .update({
+                                        number_of_guests: x
+                                    }).then(
+                                        res.redirect("back")
+                                    )
+                            })
+                    )
             } else {
                 req.flash("full_room", "Sorry, this room is now full.")
                 res.redirect(`/places/${uName}`)
             }
 
-    })
-    
+        })
+
 })
 
 io.on("connection", (socket) => {
@@ -460,10 +613,17 @@ app.post("/create_table/:name", (req, res) => {
 
     const { hostName, restName, restAddress, max_guests, prefLanguage, current_guests, dateTime, tableDesc } = req.body;
 
-    let dt = dateTime.replace("T"," ")
+    let dt = dateTime.replace("T", " ")
 
 
-    db("pending_tables")
+    date1 = dateTime.substr(0,10).replace(/-/gi,"")
+
+    if (nowaday - date1 > 0) {
+        req.flash("expired_date", "Please select the correct date")
+        res.redirect("back")
+    } else {
+      
+        db("pending_tables")
         .insert({
             host_name: hostName,
             restaurant_name: restName,
@@ -481,65 +641,69 @@ app.post("/create_table/:name", (req, res) => {
             let max_guests = data[0].max_number_guests
 
             switch (max_guests) {
-                case 2: 
+                case 2:
 
-                db("pending_tables_guests")
-                .insert({
-                    pending_tables_id: table_id,
-                    host_name: hostName,
-                    guest_3: "not_available",
-                    guest_4: "not_available",
-                    guest_5: "not_available"
-                }).then((rows) => {
-                req.flash('table_created', "Table has been created")
-                res.redirect(`/places/${uName}`)
-                });
-                break;
+                    db("pending_tables_guests")
+                        .insert({
+                            pending_tables_id: table_id,
+                            host_name: hostName,
+                            guest_3: "not_available",
+                            guest_4: "not_available",
+                            guest_5: "not_available"
+                        }).then((rows) => {
+                            req.flash('table_created', "Table has been created")
+                            res.redirect(`/my_tables/${uName}`)
+                        });
+                    break;
 
-                case 3: 
+                case 3:
 
-                db("pending_tables_guests")
-                .insert({
-                    pending_tables_id: table_id,
-                    host_name: hostName,
-                    guest_4: "not_available",
-                    guest_5: "not_available"
-                }).then((rows) => {
-                req.flash('table_created', "Table has been created")
-                res.redirect(`/places/${uName}`)
-                });
-                break;
+                    db("pending_tables_guests")
+                        .insert({
+                            pending_tables_id: table_id,
+                            host_name: hostName,
+                            guest_4: "not_available",
+                            guest_5: "not_available"
+                        }).then((rows) => {
+                            req.flash('table_created', "Table has been created")
+                            res.redirect(`/my_tables/${uName}`)
+                        });
+                    break;
 
                 case 4:
 
-                 db("pending_tables_guests")
-                    .insert({
-                        pending_tables_id: table_id,
-                        host_name: hostName,
-                        guest_5: "not_available"
-                    }).then((rows) => {
-                    req.flash('table_created', "Table has been created")
-                    res.redirect(`/places/${uName}`)
-                    });
-                break;
-    
-                case 5: 
+                    db("pending_tables_guests")
+                        .insert({
+                            pending_tables_id: table_id,
+                            host_name: hostName,
+                            guest_5: "not_available"
+                        }).then((rows) => {
+                            req.flash('table_created', "Table has been created")
+                            res.redirect(`/my_tables/${uName}`)
+                        });
+                    break;
 
-                db("pending_tables_guests")
-                    .insert({
-                        pending_tables_id: table_id,
-                        host_name: hostName
-                    }).then((rows) => {
-                    req.flash('table_created', "Table has been created")
-                    res.redirect(`/places/${uName}`)
-                    });
-                break;
+                case 5:
+
+                    db("pending_tables_guests")
+                        .insert({
+                            pending_tables_id: table_id,
+                            host_name: hostName
+                        }).then((rows) => {
+                            req.flash('table_created', "Table has been created")
+                            res.redirect(`/my_tables/${uName}`)
+                        });
+                    break;
             }
-            
+
         })
         .catch((err) => {
             throw err;
         })
+
+
+    }
+
 })
 
 
@@ -557,13 +721,15 @@ app.get("/uCalendar", function (req, res) {
 app.post("/newEvent/:name", (req, res) => {
     const uName = req.params.name;
     const { title, date } = req.body;
+
     db("event")
-        .insert({
-            title: title,
-            start: date,
-            editor: uName,
-        })
-        .then(res.redirect(`/secondary/${uName}`));
+    .insert({
+        title: title,
+        start: date,
+        editor: uName,
+    })
+    .then(res.redirect(`/secondary/${uName}`));
+
 });
 
 //update 
@@ -590,12 +756,62 @@ app.post("/deleteEvent/:name/", async (req, res) => {
         .then(res.redirect(`/secondary/${uName}`));
 });
 
-app.get('/find-a-table', (req, res) => {
-    res.render('find-a-table', { layout: 'secondary' });
+//Find my tables
+
+app.get('/my_tables/:name', (req, res) => {
+    const uName = req.params.name;
+
+    console.log(uName)
+
+    let hostData;
+    let joinData;
+
+    let query = db.select('*').from('users').where("username", uName);
+
+    query
+        .then((rows) => {
+            let name = rows[0].name;
+        
+        db.select('*')
+        .from("pending_tables").where("host_name", name)
+        .then((data) => {
+
+            for (let i = 0; i < data.length; i++) {
+                data[i].uName = uName
+                data[i].realName = name
+            }
+ 
+            hostData = data;
+             
+            db.from('pending_tables')
+            .innerJoin('pending_tables_guests', 'pending_tables.id', 'pending_tables_guests.pending_tables_id')
+
+            .where(function (){
+                this.where('guest_1', name).orWhere('guest_2', name).orWhere('guest_3', name)
+                .orWhere('guest_4', name).orWhere('guest_5', name)
+            }).then((data) =>{
+                console.log(data)
+
+                for (let i = 0; i < data.length; i++) {
+                    data[i].uName = uName
+                    data[i].realName = name
+                }    
+
+                joinData = data; 
+
+                res.render('my_tables', { layout: 'secondary', uName, name, hostData, joinData});
+            })
+        })
+            
+        })
+        .catch((err) => {
+            throw err;
+        })
 })
 
 // Search places
 app.get('/places/:name', (req, res) => {
+    
     const uName = req.params.name;
 
     let query = db.select('*').from('users').where("username", uName);
@@ -605,16 +821,29 @@ app.get('/places/:name', (req, res) => {
             let name = rows[0].name;
 
             let table = [];
+            let del = [];
 
             db.select("*")
                 .from("pending_tables")
                 .then((data) => {
                     for (let i = 0; i < data.length; i++) {
-                        data[i].uName = uName
+            
+                        if (data[i].max_number_guests === data[i].number_of_guests) {
+                            del.push(i)
+                        } else {
+                            data[i].uName = uName
+                            data[i].realName = name
+                        }
                     }
+
+                    for(let i = 0; i < del.length; i++) {
+                        data.splice(del[i], 1)
+                    }
+
                     table = data
-                    res.render('googleMaps', { 
-                        layout: 'placesSearch', uName, name, table 
+
+                    res.render('googleMaps', {
+                        layout: 'placesSearch', uName, name, table
                     })
                 });
         })
@@ -628,3 +857,33 @@ server.listen(3000, () => {
     console.log("Server is running on port 3000");
 })
 
+// let j = schedule.scheduleJob('*/100 * * * * *', function(){
+
+//     let array = [];
+  
+//     db.select("*")
+//     .from("pending_tables")
+//     .then((data) => {
+//         let dateTime 
+
+//         for (let i = 0; i < data.length; i++) {
+//             dateTime =  (data[i].date_and_time).substr(0, 10).replace(/-/gi,"")
+
+//             if (nowaday - dateTime > 0) {
+
+//                 db("pending_tables_guests")
+//                 .where("pending_tables_id", "=", data[i].id)
+//                 .del()
+//                 .then( 
+//                     db("pending_tables_guests")
+//                     .where("id", "=", data[i].id)
+//                     .del()
+//                     .then( 
+//                     )
+//                 )
+//             }
+//         }
+
+//         console.log(array);
+//     })
+// });

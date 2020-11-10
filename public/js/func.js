@@ -1,8 +1,16 @@
 let cUser
 let uCalendar 
 let x 
-let today = new Date().toISOString().slice(0, 10)
+let day = new Date().toISOString().slice(0, 10)
 
+//list.js
+var options = {
+  valueNames: ['host_name', 'restaurant_name', 'number_guests', 'pref_language', 'description', 'address', 'date_time']
+};
+
+var userList = new List('users', options);
+
+var userList2 = new List('user2', options);
 
 
 window.onload =  async function () {
@@ -24,7 +32,7 @@ window.onload =  async function () {
       next : "next"
     },
     initialView: 'dayGridMonth',
-    initialDate: today,
+    initialDate: day,
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
@@ -56,15 +64,6 @@ $("#editButton").click(()=> {
   console.log("modal")
   $("#exampleModal3").modal('toggle');
 })
-
-
-
-//list.js
-var options = {
-  valueNames: [ 'name', 'born' ]
-};
-
-var userList = new List('users', options);
 
 
 

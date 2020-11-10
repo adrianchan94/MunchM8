@@ -44,13 +44,13 @@ function getInput() {
   var locationVal = document.getElementById('inputPlaceSearch').value;
   var cuisineVal = document.getElementById('cuisine').value;
   var radiusVal = document.getElementById('destination').value;
-  var dateVal = document.getElementById('date-start').value;
+  // var dateVal = document.getElementById('date-start').value;
 
   // Store input to localStorage
   localStorage.setItem('location', locationVal);
   localStorage.setItem('cuisine', cuisineVal);
   localStorage.setItem('radius', radiusVal);
-  localStorage.setItem('date', dateVal);
+  // localStorage.setItem('date', dateVal);
 };
 
 //create resturaunt modal

@@ -3,48 +3,81 @@
     <div class="col-lg-6 col-md-6">
         <div class="cardDeckFrame">
             <div class="card-deck">
-                <div class="card cardFrame">
+                <div class="card cardFrame bg-secondary">
                     <div class="card-header bg-dark text-white border-success">
-                        <h1 class="profileHeader text-center">{{info.name}}</h1>
+                        <h1 class="profileHeader text-center card-title table-card-header text-white">
+                            {{filter.restaurant_name}}</h1>
                     </div>
-                    <div class="bg-secondary cardImgFrame">
-                        <div class="cardImgBlock">
-                            <img class="card-img-top coverPhotoFrame rounded" src="/images/defaultCover.jpg"
-                                alt="No Photo Yet">
+                    <div class="cardInfo">
+
+                        <ul class="list-group text-dark col-12">
+                            <li class="list-group-item address list-group-item-dark"><b>Host Name:</b>
+                                {{filter.host_name}}</li>
+                        </ul>
+                        <ul class="list-group text-dark col-12">
+                            <li class="list-group-item address list-group-item-dark"><b>Number of Guests:</b>
+                                {{filter.number_of_guests}} out of {{filter.max_number_guests}}</li>
+                        </ul>
+                        <ul class="list-group text-dark col-12">
+                            <li class="list-group-item address list-group-item-dark"><b>Preferred Language:</b>
+                                {{filter.preferred_language}}</li>
+                        </ul>
+                        <ul class="list-group text-dark col-12">
+                            <li class="list-group-item address list-group-item-dark"><b>Date and Time:</b>
+                                {{filter.date_and_time}}</li>
+                        </ul>
+                        <ul class="list-group text-dark col-12">
+                            <li class="list-group-item description list-group-item-dark"><b>Description:</b>
+                                {{filter.description}}</li>
+
+                        </ul>
+                        <ul class="list-group text-dark col-12">
+                            <li class="list-group-item address list-group-item-dark"><b>Address:</b>
+                                {{filter.restaurant_address}}</li>
+                        </ul>
+
+                    </div>
+                    <div class="text-white card-body">
+                    <h5 class="card-title card-header bg-dark text-white confirmedParHead">Restaurant Rating & Reviews</h5>
+                    <div class="cardInfo bg-secondary">
+                        <ul class="list-group text-dark col-12">
+                            <li class="list-group-item list-group-item-dark"><b>Rating:</b></li>
+                        </ul>
+                        <ul class="list-group text-dark col-12">
+                            <li class="list-group-item list-group-item-dark"><b>Reviews:</b></li>
+        
+                        </ul>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="join_chat ml-auto">
+                                    <form action="/chat/confirm/{{uName}}" method="POST">
+                                        <div class="form-group d-none">
+                                            <div class="input-group input-group-lg">
+                                                <input type="text" id="username" name="username"
+                                                    class="form-control bg-light text-black" placeholder="Username"
+                                                    value="{{realName}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group d-none">
+                                            <div class="input-group input-group-lg">
+                                                <input type="text" id="room" name="room"
+                                                    class="form-control bg-light text-black" placeholder="Room"
+                                                    value="{{roomId}}">
+                                            </div>
+                                        </div>
+                                        <input type="submit" value="Confirm Table"
+                                            class="btn-info btn-block btn-lg m-0tableBtn">
+
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-danger btn-block btn-lg m-0">Cancel</button>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="bg-secondary text-white card-body">
-                        <h5 class="card-title card-header bg-dark text-white">About Me</h5>
-                        <div class="cardInfo">
-
-                            {{#if missing_about_me}}
-                            <p class="card-text font-italic text-center">
-                                Please enter a brief description of yourself here.
-                            </p>
-                            {{else}}
-                            <p class="card-text">
-                                {{info.about_me}}
-                            </p>
-                            {{/if}}
-                        </div>
-                        <h5 class="card-title card-header bg-dark text-white">Interests</h5>
-                        <div class="cardInfo">
-
-                            {{#if missing_interests}}
-                            <p class="card-text font-italic text-center">
-                                Please list some of your interests here.
-                            </p>
-                            {{else}}
-                            <p class="card-text">
-                            <p>{{info.interests}}</p>
-                            </p>
-                            {{/if}}
-                        </div>
-                    </div>
-                    <div class="bg-secondary editProfile">
-                        <a class="btn btn-primary" id="editButton" role="button">Edit Profile</a>
-                    </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -54,8 +87,11 @@
 
     <div class="col-md-6 col-lg-6">
         <div class="cardDeckFrame">
-            <div class="card-deck">
+            <div class="card-deck bg-dark">
                 <div class="container">
+                    <h5 class="card-title bg-dark text-white chatHeader">
+                        Table Messenger
+                    </h5>
                     <div class="chat-container">
 
                         <main class="chat-main">
@@ -75,42 +111,65 @@
                 </div>
             </div>
         </div>
-        <div class="cardDeckFrame">
-            <div class="card-deck">
+        <div class="cardDeckFrame confirmedPar">
+            <div class="card-deck bg-dark">
                 <div class="text-white card-body">
-                    <h5 class="card-title card-header bg-dark text-white">Confirmed Participants</h5>
-                    <div class="cardInfo">
+                    <h5 class="card-title card-header bg-dark text-white confirmedParHead">Confirmed Participants</h5>
+                    <div class="cardInfo bg-secondary confirmParBox">
                         <p>{{messages.already_joined}}</p>
                         <ul class="list-group text-dark col-12">
-                            <li class="list-group-item"><b>Host:</b>{{filter.host_name}}</li>
+                            <li class="list-group-item confirmParName"><b>Host:</b> {{filter.host_name}}</li>
                         </ul>
                         <ul class="list-group text-dark col-12">
-                            <li class="list-group-item">Guests:
-                        {{#if guest_1}}
-                        {{filter.guest_1}},
-                        {{/if}}
-                         {{#if guest_2}}
-                        {{filter.guest_2}},
-                        {{/if}}
-                         {{#if guest_3}}
-                        {{filter.guest_3}},
-                        {{/if}}
-                         {{#if guest_4}}
-                        {{filter.guest_4}},
-                        {{/if}}
-                         {{#if guest_5}}
-                        {{filter.guest_5}}
-                        {{/if}}
+                            <li class="list-group-item confirmParName">Guests:
+                                {{#if guest_1}}
+                                {{filter.guest_1}}
+                                {{/if}}
+                                {{#if guest_2}}
+                                ,{{filter.guest_2}}
+                                {{/if}}
+                                {{#if guest_3}}
+                                ,{{filter.guest_3}}
+                                {{/if}}
+                                {{#if guest_4}}
+                                ,{{filter.guest_4}}
+                                {{/if}}
+                                {{#if guest_5}}
+                                ,{{filter.guest_5}}
+                                {{/if}}
                         </ul>
                         <div class="row">
-                        <div class="col-md-6">
-                            <div class="join_chat ml-auto">
-                                <form action="/chat/confirm/{{uName}}" method="POST">
+                            <div class="col-md-6">
+                                <div class="join_chat ml-auto">
+                                    <form action="/chat/confirm/{{uName}}" method="POST">
+                                        <div class="form-group d-none">
+                                            <div class="input-group input-group-lg">
+                                                <input type="text" id="username" name="username"
+                                                    class="form-control bg-light text-black" placeholder="Username"
+                                                    value="{{realName}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group d-none">
+                                            <div class="input-group input-group-lg">
+                                                <input type="text" id="room" name="room"
+                                                    class="form-control bg-light text-black" placeholder="Room"
+                                                    value="{{roomId}}">
+                                            </div>
+                                        </div>
+                                        <input type="submit" value="Join Table"
+                                            class="btn-primary btn-block btn-lg m-0 submit-btn tableBtn">
+
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <form action="/chat/exit/{{uName}}" method="POST">
                                     <div class="form-group d-none">
                                         <div class="input-group input-group-lg">
                                             <input type="text" id="username" name="username"
                                                 class="form-control bg-light text-black" placeholder="Username"
-                                                value="{{uName}}">
+                                                value="{{realName}}">
                                         </div>
                                     </div>
 
@@ -121,16 +180,12 @@
                                                 value="{{roomId}}">
                                         </div>
                                     </div>
-                                    <input type="submit" value="tableConfirm"
-                                        class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn">
+                                    <input type="submit" value="Leave Table"
+                                        class="btn-danger btn-block btn-lg m-0 submit-btn tableBtn">
 
                                 </form>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <button class="btn-secondary btn bg-dark text-light btn-block btn-lg m-0">Cancel</button>
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>

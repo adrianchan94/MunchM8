@@ -239,7 +239,7 @@ body {
 }
 
 .cardDeckFrame {
-    margin: 3rem;
+    margin: 1.5rem;
 }
 
 .card-deck {
@@ -253,7 +253,7 @@ body {
 }
 
 .calendarOuter {
-    padding: 3rem;
+    padding: 1.5rem;
 }
 
 .calendarLoaded {
@@ -297,6 +297,11 @@ body {
     font-weight: 400;
     text-transform: uppercase;
     color: grey;
+    padding-top: 1rem;
+}
+
+.chatCard {
+    text-align: center;
 }
 
 .coverPhotoFrame {
@@ -310,10 +315,40 @@ body {
     margin: 1rem;
 }
 
+.list {
+    padding: 0;
+}
+
 .chatSubmit {
     max-width: 34vw; 
 }
 
+.confirmedPar {
+    margin-top: -40px;
+}
+
+
+.confirmParName {
+    margin-left: 1rem;
+}
+
+.chat-container {
+    min-width: 45vw;
+}
+
+.tableBtn {
+    margin-top: 0.5rem !important;
+}
+
+.chatHeader {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: -30px;
+}
+
+.confirmParBox {
+    border: 2px solid grey;
+}
 
 .table-card-header {
     border-radius: 20px 20px 0px 0px !important;
@@ -435,9 +470,10 @@ body {
     text-align: center; 
 }
 
+
 :root {
-    --dark-color-a: #27227d;
-    --dark-color-b: #27227d;
+    --dark-color-a: #1874D2;
+    --dark-color-b:  #1874D2;
     --light-color: #e6e9ff;
     --success-color: #5cb85c;
     --error-color: #d9534f;
