@@ -362,24 +362,28 @@ app.get('/places', (req, res) => {
 
 // Confirmation
 app.get("/confirmation/:name", async(req, res) => {
-    const uName = req.params.name;
-    const uEmail = await db.select("id","email").from("users");
+    let uName = req.params.name;
+    let uEmail = await db.select("id","email").from("users");
     res.render("email", { layout: "confirmation", uName, uEmail});
 });
 
 app.post("/send/:name", async(req, res) => {
-    const uName = req.params.name;
+    let uName = req.params.name;
 
-    const { attendees, scheduled, restaurant, address, email } = req.body;
-    const strEmail = email.toString();
+    let { attendees, scheduled, restaurant, address, email } = req.body;
+
+    // an email for sending
+    let strEmail = email.toString();
 
 
-    const output = async (aEmail) => {
+    let output = async (aEmail) => {
         // Query each username for send the individual link
+        let tags;
         for(let i = 0; i < aEmail.length; i++) {
-            const queryUsername = await db.select("username").from("users").where("email", "=", aEmail[i])
-            const username = queryUsername[0].username;
-            const tags = `
+            let queryUsername = await db.select("username").from("users").where("email", "=", aEmail[i])
+            let username = queryUsername[0].username;
+            console.log(username);
+            tags = `
             <p>You have a new Confirmation</p>
             <h3>Complete Details</h3>
             <ul>  
@@ -394,16 +398,16 @@ app.post("/send/:name", async(req, res) => {
                     <table cellspacing="0" cellpadding="0">
                     <tr>
                         <td style="border-radius: 2px;" bgcolor="#ED2939">
-                            <a href="http://127.0.0.1:3000/review-rating/${username}/" target="_blank 
-                                style="padding: 8px 12px; 
-                                border: 1px solid #ED2939; 
-                                border-radius: 2px;
-                                font-family: Helvetica, Arial, sans-serif;
-                                font-size: 14px; 
-                                color: #ffffff; 
-                                text-decoration: none; 
-                                font-weight: bold; 
-                                display: inline-block;">
+                            <a href="http://127.0.0.1:3000/review-rating/${username}" 
+                            target="_blank" 
+                            style="padding: 8px 12px; 
+                            border: 1px solid #ED2939; 
+                            border-radius: 2px; 
+                            font-family: Helvetica, Arial, sans-serif; 
+                            font-size: 14px; color: #ffffff; 
+                            text-decoration: none; 
+                            font-weight: bold; 
+                            display: inline-block;">
                             Request a Review
                             </a>
                         </td>
@@ -413,12 +417,13 @@ app.post("/send/:name", async(req, res) => {
             </tr>
             </table>
             <h3>Thank You.</h3>`
-            return tags;
+
         };
+        console.log(tags);
+        return tags;
     };
 
-    const eachTag = await output(email)
-    console.log(eachTag);
+    let eachTag = await output(email);
     
     const transporter = nodemailer.createTransport({
         host: process.env.SMTP,
@@ -435,7 +440,7 @@ app.post("/send/:name", async(req, res) => {
         to: `${strEmail}`,
         subject: "👻  MuchM8 Confirmation 👻 ",
         text: "✔ Hello, ",
-        html: output()
+        html: eachTag
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -450,7 +455,7 @@ app.post("/send/:name", async(req, res) => {
 
 // Review & Rating
 app.get("/review-rating/:name", async(req, res) => {
-    res.render("rating", { layout: "review"});
+    res.render("rating", { layout: "secondary"});
 });
 
 server.listen(3000, () => {
