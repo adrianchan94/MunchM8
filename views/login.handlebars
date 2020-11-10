@@ -1,34 +1,65 @@
+<div class="mainBanner">
+    <div class="mainNav">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="mainLogo" href="/main/{{uName}}"><img class="mainLogo" src="/images/logo.png" width="200"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login ">Log-In <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/secondary/{{uName}}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/my_tables/{{uName}}">My Tables</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="row bannerContent d-flex">
+            <div class="col-lg-6 col-md-12 slogan">
+                <h1>Got Plans For Dinner Yet?</h1>
 
-<div class="col-lg-4 col-md-12 formSection">
-    <form action="/login" method="POST" class="loginForm">
-        <div class="col-12">
-            <h1>Log-In</h1>
-        </div>
+            </div>
+            <div class="col-lg-4 col-md-12 formSection">
+                <form action="/login" method="POST" class="loginForm">
+                    <div class="col-12">
+                        <h1>Log-In</h1>
+                    </div>
 
-                    <p class="successMessage">{{messages.success}}</p> 
+                    <p class="successMessage">{{messages.success}}</p>
 
-                    <p class="errorMessage">{{messages.error}}</p>  
+                    <p class="errorMessage">{{messages.error}}</p>
 
-                     <p class="successMessage">{{messages.success_msg}}</p> 
+                    <p class="successMessage">{{messages.success_msg}}</p>
 
-                     <p class="loginMessage">{{messages.login_msg}}</p> 
+                    <p class="loginMessage">{{messages.login_msg}}</p>
 
 
-        <div class="form-group loginInput">
-            <div class="col-12">
-                <label for="exampleInputUsername">Username</label>
-                <input type="text" class="form-control" id="username" name="username">
+                    <div class="form-group loginInput">
+                        <div class="col-12">
+                            <label for="exampleInputUsername">Username</label>
+                            <input type="text" class="form-control" id="username" name="username">
+                        </div>
+                    </div>
+                    <div class="form-group loginInput">
+                        <div class="col-12">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" name="password" id="password">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary loginSubmit">Submit</button>
+                    <div class="col-12 loginRedirect">
+                        <a href="/register">Register</a>
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="form-group loginInput">
-            <div class="col-12">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" name="password" id="password">
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary loginSubmit">Submit</button>
-        <div class="col-12 loginRedirect">
-            <a href="/register">Register</a>
-        </div>
-    </form>
+    </div>
 </div>

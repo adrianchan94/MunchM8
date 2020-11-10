@@ -1,71 +1,109 @@
-<div class="row profileSec">
-    <div class="col-lg-6 col-md-12">
-        <div class="cardDeckFrame">
-            <div class="card-deck">
-                <div class="card cardFrame">
-                    <div class="card-header bg-dark text-white border-success">
-                        <h1 class="profileHeader text-center">{{info.name}}</h1>
-                    </div>
-                    <div class="bg-secondary cardImgFrame">
-                        <div class="cardImgBlock">
-                            {{#if missingURL}}
-                            <img class="card-img-top coverPhotoFrame rounded" src="/images/defaultCover.jpg"
-                                alt="No Photo Yet">
-                            {{else}}
-                            <img class="card-img-top coverPhotoFrame rounded" src="{{info.cover_photo_URL}}"
-                                alt="Card image">
-                            {{/if}}
+<div class="secondPageBanner">
+    <div class="mainNav">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="mainLogo" href="/main/{{uName}}"><img class="mainLogo" src="/images/logo.png" width="200"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/main/{{uName}}">Find A Table<span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/secondary/{{uName}}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/my_tables/{{uName}}">My Tables</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container secPageHeadContainer">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="secPageHeader">My Munch Profile</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="secPageMain">
+    <div class="row profileSec">
+        <div class="col-lg-6 col-md-12">
+            <div class="cardDeckFrame">
+                <div class="card-deck">
+                    <div class="card cardFrame">
+                        <div class="card-header bg-dark text-white border-success">
+                            <h1 class="profileHeader text-center">{{info.name}}</h1>
                         </div>
-                    </div>
-
-                    <div class="bg-secondary text-white card-body">
-                        <h5 class="card-title card-header bg-dark text-white">About Me</h5>
-                        <div class="cardInfo">
-
-                            {{#if missing_about_me}}
-                            <p class="card-text font-italic text-center">
-                                Please enter a brief description of yourself here.
-                            </p>
-                            {{else}}
-                            <p class="card-text">
-                                {{info.about_me}}
-                            </p>
-                            {{/if}}
+                        <div class="bg-secondary cardImgFrame">
+                            <div class="cardImgBlock">
+                                {{#if missingURL}}
+                                <img class="card-img-top coverPhotoFrame rounded" src="/images/defaultCover.jpg"
+                                    alt="No Photo Yet">
+                                {{else}}
+                                <img class="card-img-top coverPhotoFrame rounded" src="{{info.cover_photo_URL}}"
+                                    alt="Card image">
+                                {{/if}}
+                            </div>
                         </div>
-                        <h5 class="card-title card-header bg-dark text-white">Interests</h5>
-                        <div class="cardInfo">
 
-                            {{#if missing_interests}}
-                            <p class="card-text font-italic text-center">
-                                Please list some of your interests here.
-                            </p>
-                            {{else}}
-                            <p class="card-text">
-                            <p>{{info.interests}}</p>
-                            </p>
-                            {{/if}}
+                        <div class="bg-secondary text-white card-body">
+                            <h5 class="card-title card-header bg-dark text-white">My Rating</h5>
+                            <div class="ratingBox"> 
+                                  <div class="my-rating-1"></div>
+                            </div>
+                            <h5 class="card-title card-header bg-dark text-white">About Me</h5>
+                            <div class="cardInfo">
+
+                                {{#if missing_about_me}}
+                                <p class="card-text font-italic text-center">
+                                    Please enter a brief description of yourself here.
+                                </p>
+                                {{else}}
+                                <p class="card-text">
+                                    {{info.about_me}}
+                                </p>
+                                {{/if}}
+                            </div>
+                            <h5 class="card-title card-header bg-dark text-white">Interests</h5>
+                            <div class="cardInfo">
+
+                                {{#if missing_interests}}
+                                <p class="card-text font-italic text-center">
+                                    Please list some of your interests here.
+                                </p>
+                                {{else}}
+                                <p class="card-text">
+                                <p>{{info.interests}}</p>
+                                </p>
+                                {{/if}}
+                            </div>
                         </div>
-                    </div>
-                    <div class="bg-secondary editProfile">
-                        <a class="btn btn-primary" id="editButton" role="button">Edit Profile</a>
+                        <div class="bg-secondary editProfile">
+                            <a class="btn btn-primary" id="editButton" role="button">Edit Profile</a>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
-    </div>
-
-    <div class="col-lg-6 col-md-12">
-        <div class="calendarOuter">
-            <div class="card-deck">
-                <div class="card calendarFrame">
-                    <div class="calendarHeader">
-                        <h1>Calendar</h1>
-                    </div>
-                    <div class="loadingContainer">
-                        <div class="span12 mr-2 calendarLoaded">
-                            <div class="container">
-                                <div id="calendar" class="mt-5 ">
+        <div class="col-lg-6 col-md-12">
+            <div class="calendarOuter">
+                <div class="card-deck">
+                    <div class="card calendarFrame">
+                        <div class="calendarHeader">
+                            <h1>Calendar</h1>
+                        </div>
+                        <div class="loadingContainer">
+                            <div class="span12 mr-2 calendarLoaded">
+                                <div class="container">
+                                    <div id="calendar" class="mt-5 ">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +112,15 @@
             </div>
         </div>
     </div>
+
 </div>
+
+<footer>
+    <div class="footer">
+        <p>©2020 MunchM8. All Rights Reserved.</p>
+    </div>
+</footer>
+
 
 <div class="d-none uName">{{uName}}</div>
 <!-- Modal -->
@@ -327,3 +373,17 @@
         </div>
     </div>
 </div>
+
+<div class="d-none roomName">{{roomId}}</div>
+
+
+<div class="d-none hostName">{{variable.host_name}}</div>
+<div class="d-none g1">{{variable.guest_1}}</div>
+
+<div class="d-none g2">{{variable.guest_2}}</div>
+<div class="d-none g3">{{variable.guest_3}}</div>
+
+<div class="d-none g4">{{variable.guest_4}}</div>
+<div class="d-none g5">{{variable.guest_5}}</div>
+
+

@@ -1,6 +1,7 @@
 let cUser
 let uCalendar 
 let x 
+let y
 let day = new Date().toISOString().slice(0, 10)
 
 //list.js
@@ -17,7 +18,25 @@ window.onload =  async function () {
 
   scrollTo(0, 0);
   cUser = document.querySelector(".uName").innerHTML
+  cRoom = document.querySelector(".roomName").innerHTML
+  host = document.querySelector(".hostName").innerHTML
+  guest1 = document.querySelector(".g1").innerHTML
+  guest2 = document.querySelector(".g2").innerHTML
+  guest3 = document.querySelector(".g3").innerHTML
+  guest4 = document.querySelector(".g4").innerHTML
+  guest5 = document.querySelector(".g5").innerHTML
   await getData()
+  await getRate()
+
+
+  $(".my-rating-1").starRating({
+    totalStars: 5,
+    starSize: 40,
+    readOnly: true,
+    initialRating: y,
+
+  });
+
   
 //calendar
   var calendarEl = document.getElementById('calendar');
@@ -83,6 +102,133 @@ async function  getData() {
       // console.log(x)
      
     });
+}
+
+//ratings 
+
+$(".my-rating-4").starRating({
+  totalStars: 5,
+  starSize: 40,
+  useFullStars: true,
+  callback: async function(currentRating, $el){
+    await fetch(`http://localhost:3000/rate/${hostName}`, {
+      method:'POST',
+      headers: {'content-Type': 'application/json'},
+      body: JSON.stringify({
+        rate : currentRating,
+        time : 1
+      })
+    }).then((response)=>{
+      console.log(response)
+    })
+  }
+});
+
+$(".my-rating-5").starRating({
+  totalStars: 5,
+  starSize: 40,
+  useFullStars: true,
+  callback: async function(currentRating, $el){
+    await fetch(`http://localhost:3000/rate/${guest1}`, {
+      method:'POST',
+      headers: {'content-Type': 'application/json'},
+      body: JSON.stringify({
+        rate : currentRating,
+        time : 1
+      })
+    }).then((response)=>{
+      console.log(response)
+    })
+  }
+});
+
+$(".my-rating-6").starRating({
+  totalStars: 5,
+  starSize: 40,
+  useFullStars: true,
+  callback: async function(currentRating, $el){
+    await fetch(`http://localhost:3000/rate/${guest2}`, {
+      method:'POST',
+      headers: {'content-Type': 'application/json'},
+      body: JSON.stringify({
+        rate : currentRating,
+        time : 1
+      })
+    }).then((response)=>{
+      console.log(response)
+    })
+  }
+});
+
+$(".my-rating-7").starRating({
+  totalStars: 5,
+  starSize: 40,
+  useFullStars: true,
+  callback: async function(currentRating, $el){
+    await fetch(`http://localhost:3000/rate/${guest3}`, {
+      method:'POST',
+      headers: {'content-Type': 'application/json'},
+      body: JSON.stringify({
+        rate : currentRating,
+        time : 1
+      })
+    }).then((response)=>{
+      console.log(response)
+    })
+  }
+});
+
+$(".my-rating-8").starRating({
+  totalStars: 5,
+  starSize: 40,
+  useFullStars: true,
+  callback: async function(currentRating, $el){
+    await fetch(`http://localhost:3000/rate/${guest4}`, {
+      method:'POST',
+      headers: {'content-Type': 'application/json'},
+      body: JSON.stringify({
+        rate : currentRating,
+        time : 1
+      })
+    }).then((response)=>{
+      console.log(response)
+    })
+  }
+});
+
+$(".my-rating-9").starRating({
+  totalStars: 5,
+  starSize: 40,
+  useFullStars: true,
+  callback: async function(currentRating, $el){
+    await fetch(`http://localhost:3000/rate/${guest5}`, {
+      method:'POST',
+      headers: {'content-Type': 'application/json'},
+      body: JSON.stringify({
+        rate : currentRating,
+        time : 1
+      })
+    }).then((response)=>{
+      console.log(response)
+    })
+  }
+});
+
+async function getRate(){
+  await fetch(`http://localhost:3000/getRate/${cUser}`)
+    .then((res) => res.json())
+    .then((data) => {
+      let EditItem = data.filter((EditItem) => {
+        return EditItem.username == cUser;
+      })[0];
+
+      console.log(EditItem,EditItem.rating,EditItem.get_rated)
+      let result = (EditItem.rating/EditItem.get_rated)
+      y = result.toFixed(1)
+      console.log(y)
+
+    }).then()
+
 }
 
 // document.addEventListener('DOMContentLoaded', function() {

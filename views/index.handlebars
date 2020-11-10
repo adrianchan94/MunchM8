@@ -1,62 +1,93 @@
+<div class="mainBanner">
+    <div class="mainNav">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="mainLogo" href="/main/{{uName}}"><img class="mainLogo" src="/images/logo.png" width="200"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login ">Log-In <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/secondary/{{uName}}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/my_tables/{{uName}}">My Tables</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="row bannerContent d-flex">
+            <div class="col-lg-6 col-md-12 slogan">
+                <h1>Got Plans For Dinner Yet?</h1>
 
-
-<div class="col-lg-4 col-md-12 formSection">
-    <form id="filterForm" class="filterForm">
-        <div class="col-12">
-            <h1>Find A Table Now</h1>
-        </div>
-        <div class="form-group">
-            <div class="col-12">
-                <label class="filterInput" for="location">Location</label>
-                <input type="text" id="inputPlaceSearch" name="inputPlaceSearch" class="form-control" placeholder="Enter a location">
+            </div>
+            <div class="col-lg-4 col-md-12 formSection">
+                <form id="filterForm" class="filterForm">
+                    <div class="col-12">
+                        <h1>Find A Table Now</h1>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label class="filterInput" for="location">Location</label>
+                            <input type="text" id="inputPlaceSearch" name="inputPlaceSearch" class="form-control"
+                                placeholder="Enter a location">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label for="cuisine">Cuisine</label>
+                            <select name="#" id="cuisine" class="form-control">
+                                <option value=" ">Any</option>
+                                <option value="japanese">Japanese</option>
+                                <option value="korean">Korean</option>
+                                <option value="thai">Thai</option>
+                                <option value="chinese">Chinese</option>
+                                <option value="taiwanese">Taiwanese</option>
+                                <option value="mexican">Mexican</option>
+                                <option value="italian">Italian</option>
+                                <option value="french">French</option>
+                                <option value="portugese">Portugese</option>
+                                <option value="mediterranean">Mediterranean</option>
+                                <option value="american">American</option>
+                                <option value="indian">Indian</option>
+                                <option value="british">British</option>
+                                <option value="vietnamese">Vietnamese</option>
+                                <option value="fusion">Fusion</option>
+                                <option value="vegan">Vegan</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label for="destination">Maximum Distance (Radius)</label>
+                            <select name="#" id="destination" class="form-control">
+                                <option value="500">500m</option>
+                                <option value="1000">1km</option>
+                                <option value="2000">2km</option>
+                                <option value="3000">3km</option>
+                                <option value="4000">4km</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-12">
+                            <input id="submitForm" type="submit" class="btn btn-primary btn-block" value="Search">
+                        </div>
+                    </div>
+                    <div class="col-12 logoutRedirect">
+                        <a href="/logout">Logout</a>
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-12">
-                <label for="cuisine">Cuisine</label>
-                <select name="#" id="cuisine" class="form-control">
-                     <option value=" ">Any</option>
-                    <option value="japanese">Japanese</option>
-                    <option value="korean">Korean</option>
-                    <option value="thai">Thai</option>
-                    <option value="chinese">Chinese</option>
-                    <option value="taiwanese">Taiwanese</option>
-                    <option value="mexican">Mexican</option>
-                    <option value="italian">Italian</option>
-                    <option value="french">French</option>
-                    <option value="portugese">Portugese</option>
-                    <option value="mediterranean">Mediterranean</option>
-                    <option value="american">American</option>
-                    <option value="indian">Indian</option>
-                     <option value="british">British</option>
-                    <option value="vietnamese">Vietnamese</option>
-                    <option value="fusion">Fusion</option>
-                    <option value="vegan">Vegan</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-12">
-                <label for="destination">Maximum Distance (Radius)</label>
-                <select name="#" id="destination" class="form-control">
-                    <option value="500">500m</option>
-                    <option value="1000">1km</option>
-                    <option value="2000">2km</option>
-                    <option value="3000">3km</option>
-                    <option value="4000">4km</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-12">
-                <input id="submitForm" type="submit" class="btn btn-primary btn-block" value="Search"
-                >
-            </div>
-        </div>
-          <div class="col-12 logoutRedirect">
-            <a href="/logout">Logout</a>
-        </div>
-    </form>
+    </div>
 </div>
+
 
 <div class="d-none uName">{{uName}}</div>

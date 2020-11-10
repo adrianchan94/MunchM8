@@ -1,3 +1,36 @@
+<div class="placesSearch">
+    <div class="mainNav">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="mainLogo" href="/main/{{uName}}"><img class="mainLogo" src="/images/logo.png" width="200"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/main/{{uName}}">Find A Table<span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/secondary/{{uName}}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/my_tables/{{uName}}">My Tables</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container placesContainer">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="placesHeader">Restaurants Near You</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="placesSection">
     <div class="container-fluid">
         <div class="row">
@@ -13,6 +46,7 @@
                             <p class="errorMessage">{{messages.full_room}}</p>
                             <p class="errorMessage">{{messages.not_in_room}}</p>
                             <p class="errorMessage">{{messages.expired_date}}</p>
+                            <p class="errorMessage">{{messages.full_room}}</p>
                             <div id="users">
                                 <div class="searchBar">
                                     <!-- class="search" automagically makes an input a search field. -->
@@ -24,30 +58,36 @@
                                     <li>
                                         <!-- The innerHTML of children with class="name" becomes this items "name" value -->
 
-                                        <div class="text-white card-body table-card-body">
+                                        <div class="text-white card-body table-card-body bg-secondary">
                                             <h5 class="card-title table-card-header bg-dark text-white restaurant_name">
                                                 {{this.restaurant_name}}
                                             </h5>
                                             <div class="cardInfo">
                                                 <ul class="list-group text-dark col-6">
-                                                    <li class="list-group-item host_name list-group-item-dark"><b>Host:</b>
+                                                    <li class="list-group-item host_name list-group-item-dark">
+                                                        <b>Host:</b>
                                                         {{this.host_name}}</li>
-                                                    <li class="list-group-item number_guests list-group-item-dark"><b>No. of Guests:</b>
+                                                    <li class="list-group-item number_guests list-group-item-dark">
+                                                        <b>No. of Guests:</b>
                                                         {{this.number_of_guests}}/{{this.max_number_guests}}</li>
                                                 </ul>
                                                 <ul class="list-group text-dark col-6">
-                                                    <li class="list-group-item pref_language list-group-item-dark"><b>Preferred Language:</b>
+                                                    <li class="list-group-item pref_language list-group-item-dark">
+                                                        <b>Preferred Language:</b>
                                                         {{this.preferred_language}}</li>
-                                                    <li class="list-group-item date_time list-group-item-dark"><b>Date & Time:</b>
+                                                    <li class="list-group-item date_time list-group-item-dark"><b>Date &
+                                                            Time:</b>
                                                         {{this.date_and_time}}</li>
                                                 </ul>
                                                 <ul class="list-group text-dark col-12">
-                                                    <li class="list-group-item description list-group-item-dark"><b>Description:</b>
+                                                    <li class="list-group-item description list-group-item-dark">
+                                                        <b>Description:</b>
                                                         {{this.description}}</li>
 
                                                 </ul>
                                                 <ul class="list-group text-dark col-12">
-                                                    <li class="list-group-item address list-group-item-dark"><b>Address:</b>
+                                                    <li class="list-group-item address list-group-item-dark">
+                                                        <b>Address:</b>
                                                         {{this.restaurant_address}}</li>
                                                 </ul>
                                                 <div class="row">
@@ -100,6 +140,11 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<div class="modal loeadingModal">
+    <!-- Place at bottom of page -->
 </div>
 
 

@@ -1,42 +1,75 @@
-<div class="col-lg-4 col-md-12 formSection">
-    <form action="/register" method="POST" class="registerForm">
-        <div class="col-12">
-            <h1>Register Now</h1>
-        </div>
+<div class="mainBanner">
+    <div class="mainNav">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="mainLogo" href="/main/{{uName}}"><img class="mainLogo" src="/images/logo.png" width="200"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login ">Log-In <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/secondary/{{uName}}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/my_tables/{{uName}}">My Tables</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="row bannerContent d-flex">
+            <div class="col-lg-6 col-md-12 slogan">
+                <h1>Got Plans For Dinner Yet?</h1>
 
-        <ul class="errorMessages">
-        {{#if error}}
-            {{#each errors}}
-                    <li>{{this.message}}</li>
-            {{/each}}
-        {{/if}}    
-        </ul>
+            </div>
+            <div class="col-lg-4 col-md-12 formSection">
+                <form action="/register" method="POST" class="registerForm">
+                    <div class="col-12">
+                        <h1>Register Now</h1>
+                    </div>
 
-        <div class="form-group registerInput">
-            <label for="exampleInputName">Name</label>
-            <input type="text" class="form-control" id="name" name="name">
-            <small id="nameHelp" class="form-text text-muted">Please enter your full name.</small>
+                    <ul class="errorMessages">
+                        {{#if error}}
+                        {{#each errors}}
+                        <li>{{this.message}}</li>
+                        {{/each}}
+                        {{/if}}
+                    </ul>
+
+                    <div class="form-group registerInput">
+                        <label for="exampleInputName">Name</label>
+                        <input type="text" class="form-control" id="name" name="name">
+                        <small id="nameHelp" class="form-text text-muted">Please enter your full name.</small>
+                    </div>
+                    <div class="form-group registerInput">
+                        <label for="exampleInputUsername">Username</label>
+                        <input type="text" class="form-control" id="username" name="username">
+                    </div>
+                    <div class="form-group registerInput">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                            else.</small>
+                    </div>
+                    <div class="form-group registerInput">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                    <div class="form-group registerInput">
+                        <label for="exampleInputPassword1">Confirm Password</label>
+                        <input type="password" class="form-control" id="password2" name="password2">
+                    </div>
+                    <button type="submit" class="btn btn-primary registerSubmit">Submit</button>
+                    <div class="col-12 registerRedirect">
+                        <a href="/login">Already registered? Login here</a>
+                    </div>
+                </form>
+            </div>
         </div>
-         <div class="form-group registerInput">
-            <label for="exampleInputUsername">Username</label>
-            <input type="text" class="form-control" id="username" name="username">
-        </div>
-        <div class="form-group registerInput">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group registerInput">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="password" name="password">
-        </div>
-          <div class="form-group registerInput">
-            <label for="exampleInputPassword1">Confirm Password</label>
-            <input type="password" class="form-control" id="password2" name="password2">
-        </div>
-        <button type="submit" class="btn btn-primary registerSubmit">Submit</button>
-        <div class="col-12 registerRedirect">
-            <a href="/login">Already registered? Login here</a>
-        </div>
-    </form>
+    </div>
 </div>

@@ -1,166 +1,235 @@
-<div class="placesSection">
-    <div class="container-fluid">
+<div class="secondPageBanner">
+    <div class="mainNav">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="mainLogo" href="/main/{{uName}}"><img class="mainLogo" src="/images/logo.png" width="200"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/main/{{uName}}">Find A Table<span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/secondary/{{uName}}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/my_tables/{{uName}}">My Tables</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container secPageHeadContainer">
         <div class="row">
-            <div class="col-lg-6 pendingTables">
-                <div class="card-deck">
-                    <div class="card">
-                        <div class="card-body">
-                            <h1 class="card-title">Hosted Tables</h1>
-                            <div id="users">
-                                <div class="searchBar">
-                                    <!-- class="search" automagically makes an input a search field. -->
-                                    <input class="search form-control" placeholder="Search" />
+            <div class="col-12">
+                <h1 class="secPageHeader">My Munch Profile</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="secPageMain">
+    <div class="placesSection">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 pendingTables">
+                    <div class="card-deck">
+                        <div class="card">
+                            <div class="card-body">
+                                <h1 class="card-title">Hosted Tables</h1>
+                                <div id="users">
+                                    <div class="searchBar">
+                                        <!-- class="search" automagically makes an input a search field. -->
+                                        <input class="search form-control" placeholder="Search" />
 
 
-                                </div> <!-- Child elements of container with class="list" becomes list items -->
-                                <ul class="list">
-                                    {{#each hostData}}
-                                    <li>
-                                        <!-- The innerHTML of children with class="name" becomes this items "name" value -->
+                                    </div> <!-- Child elements of container with class="list" becomes list items -->
+                                    <ul class="list">
+                                        {{#each hostData}}
+                                        <li>
+                                            <!-- The innerHTML of children with class="name" becomes this items "name" value -->
 
-                                        <div class="text-white card-body table-card-body">
-                                            <h5 class="card-title table-card-header bg-dark text-white restaurant_name">
-                                                {{this.restaurant_name}}
-                                            </h5>
-                                            <div class="cardInfo">
-                                                <ul class="list-group text-dark col-6">
-                                                    <li class="list-group-item host_name"><b>Host:</b>
-                                                        {{this.host_name}}</li>
-                                                    <li class="list-group-item number_guests"><b>No. of Guests:</b>
-                                                        {{this.number_of_guests}}/{{this.max_number_guests}}</li>
-                                                </ul>
-                                                <ul class="list-group text-dark col-6">
-                                                    <li class="list-group-item pref_language"><b>Preferred Language:</b>
-                                                        {{this.preferred_language}}</li>
-                                                    <li class="list-group-item date_time"><b>Date & Time:</b>
-                                                        {{this.date_and_time}}</li>
-                                                </ul>
-                                                <ul class="list-group text-dark col-12">
-                                                    <li class="list-group-item description"><b>Description:</b>
-                                                        {{this.description}}</li>
+                                            <div class="text-white card-body table-card-body bg-secondary">
+                                                <h5
+                                                    class="card-title table-card-header bg-dark text-white restaurant_name">
+                                                    {{this.restaurant_name}}
+                                                </h5>
+                                                <div class="cardInfo">
+                                                    <ul class="list-group text-dark col-6">
+                                                        <li class="list-group-item host_name"><b>Host:</b>
+                                                            {{this.host_name}}</li>
+                                                        <li class="list-group-item number_guests"><b>No. of Guests:</b>
+                                                            {{this.number_of_guests}}/{{this.max_number_guests}}</li>
+                                                    </ul>
+                                                    <ul class="list-group text-dark col-6">
+                                                        <li class="list-group-item pref_language"><b>Preferred
+                                                                Language:</b>
+                                                            {{this.preferred_language}}</li>
+                                                        <li class="list-group-item date_time"><b>Date & Time:</b>
+                                                            {{this.date_and_time}}</li>
+                                                    </ul>
+                                                    <ul class="list-group text-dark col-12">
+                                                        <li class="list-group-item description"><b>Description:</b>
+                                                            {{this.description}}</li>
 
-                                                </ul>
-                                                <ul class="list-group text-dark col-12">
-                                                    <li class="list-group-item address"><b>Address:</b>
-                                                        {{this.restaurant_address}}</li>
-                                                </ul>
-                                                <div class="row">
-                                                    <div class="col-lg-12 col-md-12">
-                                                        <div class="join_chat ml-auto">
-                                                            <form
-                                                                action="/chat/{{this.uName}}/{{this.realName}}/{{this.id}}">
-                                                                <div class="form-group d-none">
-                                                                    <div class="input-group input-group-lg">
-                                                                        <input type="text" id="username" name="username"
-                                                                            class="form-control bg-light text-black"
-                                                                            placeholder="Username"
-                                                                            value="{{this.uName}}">
+                                                    </ul>
+                                                    <ul class="list-group text-dark col-12">
+                                                        <li class="list-group-item address"><b>Address:</b>
+                                                            {{this.restaurant_address}}</li>
+                                                    </ul>
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-md-12">
+                                                            <div class="join_chat ml-auto">
+                                                                <form
+                                                                    action="/chat/{{this.uName}}/{{this.realName}}/{{this.id}}">
+                                                                    <div class="form-group d-none">
+                                                                        <div class="input-group input-group-lg">
+                                                                            <input type="text" id="username"
+                                                                                name="username"
+                                                                                class="form-control bg-light text-black"
+                                                                                placeholder="Username"
+                                                                                value="{{this.uName}}">
+                                                                        </div>
                                                                     </div>
-                                                                </div>
 
-                                                                <div class="form-group d-none">
-                                                                    <div class="input-group input-group-lg">
-                                                                        <input type="text" id="room" name="room"
-                                                                            class="form-control bg-light text-black"
-                                                                            placeholder="Room" value="{{this.id}}">
+                                                                    <div class="form-group d-none">
+                                                                        <div class="input-group input-group-lg">
+                                                                            <input type="text" id="room" name="room"
+                                                                                class="form-control bg-light text-black"
+                                                                                placeholder="Room" value="{{this.id}}">
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <input type="submit" value="Join"
-                                                                    class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn chatSubmit">
+                                                                    <input type="submit" value="Join"
+                                                                        class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn chatSubmit">
 
-                                                            </form>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-md-12 mt-2">
+                                                            <div class="join_chat ml-auto">
+                                                                <form
+                                                                    action="/delete_table/{{this.uName}}/{{this.realName}}/{{this.id}}">
+                                                                    <div class="form-group d-none">
+                                                                        <div class="input-group input-group-lg">
+                                                                            <input type="text" id="username"
+                                                                                name="username"
+                                                                                class="form-control bg-light text-black"
+                                                                                placeholder="Username"
+                                                                                value="{{this.uName}}">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group d-none">
+                                                                        <div class="input-group input-group-lg">
+                                                                            <input type="text" id="room" name="room"
+                                                                                class="form-control bg-light text-black"
+                                                                                placeholder="Room" value="{{this.id}}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <input type="submit" value="Delete"
+                                                                        class="btn bg-danger text-light btn-block btn-lg m-0 submit-btn chatSubmit">
+
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                    </li>
-                                    {{/each}}
-                                </ul>
+                                        </li>
+                                        {{/each}}
+                                    </ul>
 
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-6 pendingTables">
-                <div class="card-deck">
-                    <div class="card">
-                        <div class="card-body">
-                            <h1 class="card-title">Joined Tables </h1>
-                            <div id="user2">
-                                <div class="searchBar">
-                                    <!-- class="search" automagically makes an input a search field. -->
-                                    <input class="search form-control" placeholder="Search" />
-                    
-                                </div> <!-- Child elements of container with class="list" becomes list items -->
-                                <ul class="list">
-                                    {{#each joinData}}
-                                    <li>
-                                        <!-- The innerHTML of children with class="name" becomes this items "name" value -->
+                <div class="col-lg-6 pendingTables">
+                    <div class="card-deck">
+                        <div class="card">
+                            <div class="card-body">
+                                <h1 class="card-title">Joined Tables </h1>
+                                <div id="user2">
+                                    <div class="searchBar">
+                                        <!-- class="search" automagically makes an input a search field. -->
+                                        <input class="search form-control" placeholder="Search" />
 
-                                        <div class="text-white card-body table-card-body">
-                                            <h5 class="card-title table-card-header bg-dark text-white restaurant_name">
-                                                {{this.restaurant_name}}
-                                            </h5>
-                                            <div class="cardInfo">
-                                                <ul class="list-group text-dark col-6">
-                                                    <li class="list-group-item host_name"><b>Host:</b>
-                                                        {{this.host_name}}</li>
-                                                    <li class="list-group-item number_guests"><b>No. of Guests:</b>
-                                                        {{this.number_of_guests}}/{{this.max_number_guests}}</li>
-                                                </ul>
-                                                <ul class="list-group text-dark col-6">
-                                                    <li class="list-group-item pref_language"><b>Preferred Language:</b>
-                                                        {{this.preferred_language}}</li>
-                                                    <li class="list-group-item date_time"><b>Date & Time:</b>
-                                                        {{this.date_and_time}}</li>
-                                                </ul>
-                                                <ul class="list-group text-dark col-12">
-                                                    <li class="list-group-item description"><b>Description:</b>
-                                                        {{this.description}}</li>
+                                    </div> <!-- Child elements of container with class="list" becomes list items -->
+                                    <ul class="list">
+                                        {{#each joinData}}
+                                        <li>
+                                            <!-- The innerHTML of children with class="name" becomes this items "name" value -->
 
-                                                </ul>
-                                                <ul class="list-group text-dark col-12">
-                                                    <li class="list-group-item address"><b>Address:</b>
-                                                        {{this.restaurant_address}}</li>
-                                                </ul>
-                                                <div class="row">
-                                                    <div class="col-lg-12 col-md-12">
-                                                        <div class="join_chat ml-auto">
-                                                            <form
-                                                                action="/chat/{{this.uName}}/{{this.realName}}/{{this.id}}">
-                                                                <div class="form-group d-none">
-                                                                    <div class="input-group input-group-lg">
-                                                                        <input type="text" id="username" name="username"
-                                                                            class="form-control bg-light text-black"
-                                                                            placeholder="Username"
-                                                                            value="{{this.uName}}">
+                                            <div class="text-white card-body table-card-body bg-secondary">
+                                                <h5
+                                                    class="card-title table-card-header bg-dark text-white restaurant_name">
+                                                    {{this.restaurant_name}}
+                                                </h5>
+                                                <div class="cardInfo">
+                                                    <ul class="list-group text-dark col-6">
+                                                        <li class="list-group-item host_name"><b>Host:</b>
+                                                            {{this.host_name}}</li>
+                                                        <li class="list-group-item number_guests"><b>No. of Guests:</b>
+                                                            {{this.number_of_guests}}/{{this.max_number_guests}}</li>
+                                                    </ul>
+                                                    <ul class="list-group text-dark col-6">
+                                                        <li class="list-group-item pref_language"><b>Preferred
+                                                                Language:</b>
+                                                            {{this.preferred_language}}</li>
+                                                        <li class="list-group-item date_time"><b>Date & Time:</b>
+                                                            {{this.date_and_time}}</li>
+                                                    </ul>
+                                                    <ul class="list-group text-dark col-12">
+                                                        <li class="list-group-item description"><b>Description:</b>
+                                                            {{this.description}}</li>
+
+                                                    </ul>
+                                                    <ul class="list-group text-dark col-12">
+                                                        <li class="list-group-item address"><b>Address:</b>
+                                                            {{this.restaurant_address}}</li>
+                                                    </ul>
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-md-12">
+                                                            <div class="join_chat ml-auto">
+                                                                <form
+                                                                    action="/chat/{{this.uName}}/{{this.realName}}/{{this.id}}">
+                                                                    <div class="form-group d-none">
+                                                                        <div class="input-group input-group-lg">
+                                                                            <input type="text" id="username"
+                                                                                name="username"
+                                                                                class="form-control bg-light text-black"
+                                                                                placeholder="Username"
+                                                                                value="{{this.uName}}">
+                                                                        </div>
                                                                     </div>
-                                                                </div>
 
-                                                                <div class="form-group d-none">
-                                                                    <div class="input-group input-group-lg">
-                                                                        <input type="text" id="room" name="room"
-                                                                            class="form-control bg-light text-black"
-                                                                            placeholder="Room" value="{{this.id}}">
+                                                                    <div class="form-group d-none">
+                                                                        <div class="input-group input-group-lg">
+                                                                            <input type="text" id="room" name="room"
+                                                                                class="form-control bg-light text-black"
+                                                                                placeholder="Room" value="{{this.id}}">
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <input type="submit" value="Join"
-                                                                    class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn chatSubmit">
+                                                                    <input type="submit" value="Join"
+                                                                        class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn chatSubmit">
 
-                                                            </form>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                    </li>
-                                    {{/each}}
-                                </ul>
+                                        </li>
+                                        {{/each}}
+                                    </ul>
 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -169,3 +238,9 @@
         </div>
     </div>
 </div>
+
+<footer>
+    <div class="footer">
+        <p>©2020 MunchM8. All Rights Reserved.</p>
+    </div>
+</footer>

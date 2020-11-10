@@ -1,4 +1,36 @@
-<div class="row">
+  <div class="secondPageBanner">
+        <div class="mainNav">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                  <a class="mainLogo" href="/main/{{uName}}"><img class="mainLogo" src="/images/logo.png" width="200"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/main/{{uName}}">Find A Table<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/secondary/{{uName}}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/my_tables/{{uName}}">My Tables</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="container secPageHeadContainer">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="secPageHeader">My Munch Profile</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="secPageMain">
+           <div class="row">
 
     <div class="col-lg-6 col-md-6">
         <div class="cardDeckFrame">
@@ -50,7 +82,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="join_chat ml-auto">
-                                    <form action="/chat/confirm/{{uName}}" method="POST">
+                                    <form action="/confirm_table/{{uName}}/{{roomId}}" method="POST">
                                         <div class="form-group d-none">
                                             <div class="input-group input-group-lg">
                                                 <input type="text" id="username" name="username"
@@ -116,7 +148,8 @@
                 <div class="text-white card-body">
                     <h5 class="card-title card-header bg-dark text-white confirmedParHead">Confirmed Participants</h5>
                     <div class="cardInfo bg-secondary confirmParBox">
-                        <p>{{messages.already_joined}}</p>
+                        <p class="errorMessage">{{messages.already_joined}}</p>
+                        <p class="errorMessage">{{messages.table_confirmed_byHost}}</p>
                         <ul class="list-group text-dark col-12">
                             <li class="list-group-item confirmParName"><b>Host:</b> {{filter.host_name}}</li>
                         </ul>
@@ -192,3 +225,10 @@
         </div>
     </div>
 </div>
+    </div>
+
+    <footer>
+        <div class="footer">
+            <p>©2020 MunchM8. All Rights Reserved.</p>
+        </div>
+    </footer>
