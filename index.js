@@ -263,12 +263,19 @@ app.get('/chat/:name/:realName/:id', (req, res) => {
                 return (rowfilter.pending_tables_id == roomId)
             })[0];
 
+            let h = true;
+
 
             let g1 = true;
             let g2 = true;
             let g3 = true;
             let g4 = true;
             let g5 = true;
+
+        
+            if (filter.host_name !== realName ) {
+                h = false;
+            };
 
             if (filter.guest_1 == null) {
                 g1 = false;
@@ -292,7 +299,7 @@ app.get('/chat/:name/:realName/:id', (req, res) => {
 
             res.render('chat', {
                 layout: 'secondary', filter, uName, realName, roomId, guest_1: g1,
-                guest_2: g2, guest_3: g3, guest_4: g4, guest_5: g5
+                guest_2: g2, guest_3: g3, guest_4: g4, guest_5: g5, host: h
             });
         })
 
@@ -868,8 +875,8 @@ app.post("/confirm_table/:name/:room", async (req, res) => {
             for (let i = 0; i < nameArray.length; i++) {
 
                 let tags = `
-            <p>You have a new Confirmation</p>
-            <h3>Complete Details</h3>
+            <p>Your Table Confirmation</p>
+            <h3>Booking Details:</h3>
             <ul>  
                 <li>Host Name: ${info.host_name}</li>
                 <li>Scheduled time: ${dt}</li>
@@ -877,30 +884,6 @@ app.post("/confirm_table/:name/:room", async (req, res) => {
                 <li>Address: ${info.restaurant_address}</li>
             </ul>
             <p>Look forward to seeing you there!</p>
-            <table width="100%" cellspacing="0" cellpadding="0">
-            <tr>
-                <td>
-                    <table cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td style="border-radius: 2px;" bgcolor="#ED2939">
-                            <a href="http://127.0.0.1:3000/review-rating/${nameArray[i]}/${roomId}" 
-                            target="_blank" 
-                            style="padding: 8px 12px; 
-                            border: 1px solid #ED2939; 
-                            border-radius: 2px; 
-                            font-family: Helvetica, Arial, sans-serif; 
-                            font-size: 14px; color: #ffffff; 
-                            text-decoration: none; 
-                            font-weight: bold; 
-                            display: inline-block;">
-                            Request a Review
-                            </a>
-                        </td>
-                    </tr>
-                    </table>
-                </td>
-            </tr>
-            </table>
             <h3>Thank You.</h3>`
 
                 tagArray.push(tags)
@@ -1065,7 +1048,7 @@ app.post("/deleteEvent/:name/", async (req, res) => {
 
 //Find my tables
 
-app.get('/my_tables/:name', (req, res) => {
+app.get('/my_tables/:name', checkNotAuthenticated, (req, res) => {
     const uName = req.params.name;
 
     console.log(uName)
@@ -1195,6 +1178,213 @@ app.get('/places/:name', (req, res) => {
 
 });
 
+//Complete table
+
+app.post("/complete_table/:name/:room", async (req, res) => {
+    const uName = req.params.name;
+
+    const roomId = req.params.room;
+
+    let nameArray = [];
+
+    let emailArray = [];
+
+    await db.from('pending_tables_guests')
+        .where("pending_tables_id", roomId)
+        .then(async (data) => {
+            let info = data[0]
+
+
+            if (info.guest_1 !== null && info.guest_1 !== "not_available") {
+                nameArray.push(info.guest_1)
+            }
+
+            if (info.guest_2 !== null && info.guest_2 !== "not_available") {
+                nameArray.push(info.guest_2)
+            }
+
+            if (info.guest_3 !== null && info.guest_3 !== "not_available") {
+                nameArray.push(info.guest_3)
+            }
+
+            if (info.guest_4 !== null && info.guest_4 !== "not_available") {
+                nameArray.push(info.guest_4)
+            }
+
+            if (info.guest_5 !== null && info.guest_5 !== "not_available") {
+                nameArray.push(info.guest_5)
+            }
+
+            for (let i = 0; i < nameArray.length; i++) {
+                await db('users')
+                    .select('*')
+                    .where("name", nameArray[i])
+                    .then((data) => {
+                        emailArray.push(data[0].email)
+                    })
+            }
+
+        })
+
+
+    let tagArray = [];
+
+    // Query each username for send the individual link
+
+    await db("pending_tables")
+        .select('*')
+        .where('id', roomId)
+        .then((data) => {
+
+            console.log(data)
+
+            let info = data[0]
+
+            let dt = info.date_and_time.toString().replace('T', ' ')
+
+            console.log(nameArray)
+
+            for (let i = 0; i < nameArray.length; i++) {
+
+                let tags = `
+            <p>Post Munch Review Request</p>
+            <h3>Booking Details:</h3>
+            <ul>  
+                <li>Host Name: ${info.host_name}</li>
+                <li>Scheduled time: ${dt}</li>
+                <li>Restaurant Name: ${info.restaurant_name}</li>
+                <li>Address: ${info.restaurant_address}</li>
+            </ul>
+            <p>Thank you for using MunchM8, hope you had a great time!</p>
+            <table width="100%" cellspacing="0" cellpadding="0">
+            <tr>
+                <td>
+                    <table cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td style="border-radius: 2px;" bgcolor="#ED2939">
+                            <a href="http://localhost:3000/review-rating/${nameArray[i]}/${roomId}" 
+                            target="_blank" 
+                            style="padding: 8px 12px; 
+                            border: 1px solid #ED2939; 
+                            border-radius: 2px; 
+                            font-family: Helvetica, Arial, sans-serif; 
+                            font-size: 14px; color: #ffffff; 
+                            text-decoration: none; 
+                            font-weight: bold; 
+                            display: inline-block;">
+                            Request a Review
+                            </a>
+                        </td>
+                    </tr>
+                    </table>
+                </td>
+            </tr>
+            </table>
+            <h3>Thank You.</h3>`
+
+                tagArray.push(tags)
+
+            }
+        })
+
+
+    console.log(tagArray);
+
+    // let eachTag = await output()
+
+    const transporter = nodemailer.createTransport({
+        host: process.env.SMTP,
+        port: process.env.PORT,
+        secure: false,
+        auth: {
+            user: process.env.EMAIL,
+            pass: process.env.PASSWORD,
+        },
+    });
+
+    console.log(emailArray[1])
+
+    let mailOptions1 = {
+        from: `${process.env.EMAIL}`,
+        to: `${emailArray[0]}`,
+        subject: "👻  MuchM8 Confirmation 👻 ",
+        text: "✔ Hello, ",
+        html: tagArray[0]
+    };
+
+    let mailOptions2 = {
+        from: `${process.env.EMAIL}`,
+        to: `${emailArray[1]}`,
+        subject: "👻  MuchM8 Confirmation 👻 ",
+        text: "✔ Hello, ",
+        html: tagArray[1]
+    };
+
+    let mailOptions3 = {
+        from: `${process.env.EMAIL}`,
+        to: `${emailArray[2]}`,
+        subject: "👻  MuchM8 Confirmation 👻 ",
+        text: "✔ Hello, ",
+        html: tagArray[2]
+    };
+
+    let mailOptions4 = {
+        from: `${process.env.EMAIL}`,
+        to: `${emailArray[3]}`,
+        subject: "👻  MuchM8 Confirmation 👻 ",
+        text: "✔ Hello, ",
+        html: tagArray[3]
+    };
+
+    let mailOptions5 = {
+        from: `${process.env.EMAIL}`,
+        to: `${emailArray[4]}`,
+        subject: "👻  MuchM8 Confirmation 👻 ",
+        text: "✔ Hello, ",
+        html: tagArray[4]
+    };
+
+
+    transporter.sendMail(mailOptions1, (error, info) => {
+        if (error) {
+            return console.log(error);
+        };
+        console.log('Message sent: %s', info.messageId);
+    });
+
+    transporter.sendMail(mailOptions2, (error, info) => {
+        if (error) {
+            return console.log(error);
+        };
+        console.log('Message sent: %s', info.messageId);
+    });
+
+    transporter.sendMail(mailOptions3, (error, info) => {
+        if (error) {
+            return console.log(error);
+        };
+        console.log('Message sent: %s', info.messageId);
+    });
+
+    transporter.sendMail(mailOptions4, (error, info) => {
+        if (error) {
+            return console.log(error);
+        };
+        console.log('Message sent: %s', info.messageId);
+    });
+
+    transporter.sendMail(mailOptions5, (error, info) => {
+        if (error) {
+            return console.log(error);
+        };
+        console.log('Message sent: %s', info.messageId);
+    });
+
+    res.redirect("back")
+
+
+})
+
 
 // Review & Rating
 app.get("/review-rating/:name/:id", async (req, res) => {
@@ -1209,7 +1399,7 @@ app.get("/review-rating/:name/:id", async (req, res) => {
         .then((data) => {
             let variable = data[0]
 
-            let h = true; 
+            let h = true;
 
             let g1 = true;
             let g2 = true;
@@ -1234,11 +1424,11 @@ app.get("/review-rating/:name/:id", async (req, res) => {
                 g3 = false;
             };
 
-            if (variable.guest_4 == null || variable.guest_4 == "not_available"|| variable.guest_4 == uName) {
+            if (variable.guest_4 == null || variable.guest_4 == "not_available" || variable.guest_4 == uName) {
                 g4 = false;
             };
 
-            if (variable.guest_5 == null || variable.guest_5 == "not_available"|| variable.guest_5 == uName) {
+            if (variable.guest_5 == null || variable.guest_5 == "not_available" || variable.guest_5 == uName) {
                 g5 = false;
             };
 
@@ -1248,6 +1438,27 @@ app.get("/review-rating/:name/:id", async (req, res) => {
             });
         })
 });
+
+// delete table 
+
+app.post("/delete_table/:name/:room", (req, res) => {
+    const uName = req.params.name;
+
+    const roomId = req.params.room;
+
+    db("pending_tables_guests")
+        .where("pending_tables_id", "=", roomId)
+        .del()
+        .then(
+            db("pending_tables")
+                .where("id", "=", roomId)
+                .del()
+                .then(
+                    res.redirect(`/my_tables/${uName}`)
+                )
+        )
+
+})
 
 server.listen(3000, () => {
     console.log("Server is running on port 3000");
@@ -1267,7 +1478,7 @@ let j = schedule.scheduleJob('00 00 9 * * 0-6', function () {
             for (let i = 0; i < data.length; i++) {
                 dateTime = (data[i].date_and_time).substr(0, 10).replace(/-/gi, "")
 
-                if (nowaday - dateTime > 0) {
+                if (nowaday - dateTime > 2) {
 
                     db("pending_tables_guests")
                         .where("pending_tables_id", "=", data[i].id)

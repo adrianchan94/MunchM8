@@ -146,7 +146,7 @@ body {
 .aboutUs h3 {
     padding-top: 5rem;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1.5rem;
     letter-spacing: 0.2rem;
     text-transform: uppercase;
 }
@@ -161,6 +161,7 @@ body {
     height: 30vh;
     border-top: 0.5px solid grey;
     padding-top: 2rem;
+    background-color: white;
 }
 
 .secondPageBanner {
@@ -240,6 +241,17 @@ body {
 
 .cardDeckFrame {
     margin: 1.5rem;
+}
+
+.pendingTablesCard {
+    border-radius: 20px;
+    margin: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.pendingTablesHeader {
+    border-radius: 20px 20px 0px 0px;
+    padding: 1rem;
 }
 
 .card-deck {
@@ -583,7 +595,12 @@ body {
 
 .placesSection {
     font-weight: 300;
-    font-size: 1.2rem;
+    font-size: 0.9rem;
+    background-color:#27227D;
+}
+
+.btn {
+    font-size: 1rem !important;
 }
 
 .pendingTables {
@@ -598,7 +615,7 @@ body {
     text-transform: uppercase;
     color: grey;
     font-size: 2rem;
-    letter-spacing: 1.6rem;
+    letter-spacing: 1.2rem;
     font-weight: 400;
     text-align: center;
     padding-bottom: 1rem;
@@ -610,9 +627,16 @@ body {
     margin: 0;
 }
 
+.loadingFrame {
+    background-color: white;
+    border-radius: 10px;
+}
+
+
 .mapsContainer {
     height: 50rem;
-    border-left: 1px solid white;
+    border: 10px solid #FD6600;
+    border-radius: 10px;
 }
 
 .loadingContainer {

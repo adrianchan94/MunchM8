@@ -9,14 +9,17 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/main/{{uName}}">Find A Table<span
-                                class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/main/{{uName}}">Find A Table
+                                <class="sr-only"></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/secondary/{{uName}}">Profile</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/my_tables/{{uName}}">My Tables</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -32,13 +35,13 @@
 </div>
 
 <div class="placesSection">
-    <div class="container-fluid">
+    <div class="container-fluid px-5 py-5">
         <div class="row">
             <div class="col-lg-5 pendingTables">
                 <div class="card-deck">
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="card-title">Pending Tables</h1>
+                            <h1 class="card-title penTablesHeader">Pending Tables</h1>
                             <p class="pendingTableInfo"><i>Please select a resturaunt on the map to host a table
                                     there.</i></p>
                             <button class="btn-primary randomButton d-none">Host A Table</button>
@@ -58,8 +61,9 @@
                                     <li>
                                         <!-- The innerHTML of children with class="name" becomes this items "name" value -->
 
-                                        <div class="text-white card-body table-card-body bg-secondary">
-                                            <h5 class="card-title table-card-header bg-dark text-white restaurant_name">
+                                        <div class="text-white bg-secondary pendingTablesCard">
+                                            <h5
+                                                class="card-title pendingTablesHeader bg-dark text-white restaurant_name">
                                                 {{this.restaurant_name}}
                                             </h5>
                                             <div class="cardInfo">
@@ -130,17 +134,24 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-7 mapsBox">
-                <div class="loadingContainer">
-                    <div class="mapsContainer">
-                        <!-- Map appears here -->
-                        <div id="map"></div>
+            <div class="col-lg-7 mapsBox px-5">
+                <div class="loadingFrame">
+                    <div class="loadingContainer">
+                        <div class="mapsContainer">
+                            <!-- Map appears here -->
+                            <div id="map"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<footer>
+    <div class="footer">
+        <p>©2020 MunchM8. All Rights Reserved.</p>
+    </div>
+</footer>
 
 
 <div class="modal loeadingModal">

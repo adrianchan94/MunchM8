@@ -6,67 +6,52 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/main/{{uName}}">Find A Table<span
-                                class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/secondary/{{uName}}">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/my_tables/{{uName}}">My Tables</a>
-                    </li>
-                </ul>
-            </div>
         </nav>
     </div>
     <div class="container secPageHeadContainer">
         <div class="row">
             <div class="col-12">
-                <h1 class="secPageHeader">My Munch Profile</h1>
+                <h1 class="secPageHeader">Post-Munch Review</h1>
             </div>
         </div>
     </div>
 </div>
-<div class="secPageMain">
+<div class="secPageMain px-5 py-5">
     <div class="row">
-
         <div class="col-lg-6 col-md-6">
             <div class="cardDeckFrame">
                 <div class="card-deck">
                     <div class="card cardFrame bg-secondary">
                         <div class="card-header bg-dark text-white border-success">
                             <h1 class="profileHeader text-center card-title table-card-header text-white">
-                                {{filter.restaurant_name}}</h1>
+                                {{variable.restaurant_name}}</h1>
                         </div>
                         <div class="cardInfo">
 
                             <ul class="list-group text-dark col-12">
                                 <li class="list-group-item address list-group-item-dark"><b>Host Name:</b>
-                                    {{filter.host_name}}</li>
+                                    {{variable.host_name}}</li>
                             </ul>
                             <ul class="list-group text-dark col-12">
                                 <li class="list-group-item address list-group-item-dark"><b>Number of Guests:</b>
-                                    {{filter.number_of_guests}} out of {{filter.max_number_guests}}</li>
+                                    {{variable.number_of_guests}} out of {{variable.max_number_guests}}</li>
                             </ul>
                             <ul class="list-group text-dark col-12">
                                 <li class="list-group-item address list-group-item-dark"><b>Preferred Language:</b>
-                                    {{filter.preferred_language}}</li>
+                                    {{variable.preferred_language}}</li>
                             </ul>
                             <ul class="list-group text-dark col-12">
                                 <li class="list-group-item address list-group-item-dark"><b>Date and Time:</b>
-                                    {{filter.date_and_time}}</li>
+                                    {{variable.date_and_time}}</li>
                             </ul>
                             <ul class="list-group text-dark col-12">
                                 <li class="list-group-item description list-group-item-dark"><b>Description:</b>
-                                    {{filter.description}}</li>
+                                    {{variable.description}}</li>
 
                             </ul>
                             <ul class="list-group text-dark col-12">
                                 <li class="list-group-item address list-group-item-dark"><b>Address:</b>
-                                    {{filter.restaurant_address}}</li>
+                                    {{variable.restaurant_address}}</li>
                             </ul>
 
                         </div>

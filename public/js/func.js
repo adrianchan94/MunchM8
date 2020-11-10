@@ -19,7 +19,7 @@ window.onload =  async function () {
   scrollTo(0, 0);
   cUser = document.querySelector(".uName").innerHTML
   cRoom = document.querySelector(".roomName").innerHTML
-  host = document.querySelector(".hostName").innerHTML
+  hostName = document.querySelector(".hostName").innerHTML
   guest1 = document.querySelector(".g1").innerHTML
   guest2 = document.querySelector(".g2").innerHTML
   guest3 = document.querySelector(".g3").innerHTML
