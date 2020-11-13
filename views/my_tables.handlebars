@@ -62,19 +62,18 @@
                                                 <div class="cardInfo">
                                                     <ul class="list-group text-dark col-6">
                                                         <li class="list-group-item host_name list-group-item-dark">
-                                                            <b>Host:</b>
+                                                            <i class="fas fa-crown icon"></i>
                                                             {{this.host_name}}</li>
                                                         <li class="list-group-item number_guests list-group-item-dark">
-                                                            <b>No. of Guests:</b>
+                                                           <i class="fas fa-user-friends icon"></i>
                                                             {{this.number_of_guests}}/{{this.max_number_guests}}</li>
                                                     </ul>
                                                     <ul class="list-group text-dark col-6">
                                                         <li class="list-group-item pref_language list-group-item-dark">
-                                                            <b>Preferred
-                                                                Language:</b>
+                                                            <i class="fas fa-language icon"></i>
                                                             {{this.preferred_language}}</li>
                                                         <li class="list-group-item date_time list-group-item-dark">
-                                                            <b>Date & Time:</b>
+                                                           <i class="fas fa-clock icon"></i>
                                                             {{this.date_and_time}}</li>
                                                     </ul>
                                                     <ul class="list-group text-dark col-12">
@@ -121,7 +120,7 @@
                                                         <div class="col-lg-6 col-md-6 mt-2">
                                                             <div class="join_chat ml-auto">
                                                                 <form
-                                                                    action="/complete_table/{{this.uName}}/{{this.id}}" method="POST">
+                                                                    action="/complete_table/{{this.uName}}/{{this.realName}}/{{this.id}}" method="POST">
                                                                     <div class="form-group d-none">
                                                                         <div class="input-group input-group-lg">
                                                                             <input type="text" id="username"
@@ -211,18 +210,17 @@
                                                 <div class="cardInfo">
                                                     <ul class="list-group text-dark col-6">
                                                         <li class="list-group-item host_name list-group-item-dark">
-                                                            <b>Host:</b>
+                                                             <i class="fas fa-crown icon"></i>
                                                             {{this.host_name}}</li>
-                                                        <li class="list-group-item number_guests list-group-item-dark"><b>No. of Guests:</b>
+                                                        <li class="list-group-item number_guests list-group-item-dark"> <i class="fas fa-user-friends icon"></i>
                                                             {{this.number_of_guests}}/{{this.max_number_guests}}</li>
                                                     </ul>
                                                     <ul class="list-group text-dark col-6">
                                                         <li class="list-group-item pref_language list-group-item-dark">
-                                                            <b>Preferred
-                                                                Language:</b>
+                                                             <i class="fas fa-language icon"></i>
                                                             {{this.preferred_language}}</li>
                                                         <li class="list-group-item date_time list-group-item-dark">
-                                                            <b>Date & Time:</b>
+                                                             <i class="fas fa-clock icon"></i>
                                                             {{this.date_and_time}}</li>
                                                     </ul>
                                                     <ul class="list-group text-dark col-12">

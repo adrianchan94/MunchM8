@@ -480,10 +480,19 @@ body {
     text-align: center; 
 }
 
+.fas {
+    font-size: 1.5rem;
+    margin: 0.5rem;
+}
+
+.icon {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
 
 :root {
-    --dark-color-a: #1874D2;
-    --dark-color-b:  #1874D2;
+    --dark-color-a: #FD6600;
+    --dark-color-b:  #FD6600;
     --light-color: #e6e9ff;
     --success-color: #5cb85c;
     --error-color: #d9534f;

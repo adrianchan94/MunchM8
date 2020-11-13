@@ -200,7 +200,7 @@ app.get('/secondary/:name', checkNotAuthenticated, (req, res) => {
 
             const { cover_photo_URL, about_me, interests } = info
 
-            if (!cover_photo_URL) {
+            if (!cover_photo_URL || !about_me || !interests) {
 
                 console.log("missing info")
 
@@ -208,23 +208,10 @@ app.get('/secondary/:name', checkNotAuthenticated, (req, res) => {
                     layout: 'secondary',
                     uName,
                     info,
-                    missingURL: true
-                })
-            } else if (!about_me) {
-
-                res.render('calendar', {
-                    layout: 'secondary',
-                    uName,
-                    info,
-                    missing_about_me: true
-                })
-
-            } else if (!interests) {
-                res.render('calendar', {
-                    layout: 'secondary',
-                    uName,
-                    info,
+                    missingURL: true,
+                    missing_about_me: true,
                     missing_interests: true
+
                 })
             } else {
 
@@ -817,6 +804,7 @@ app.post("/confirm_table/:name/:room", async (req, res) => {
 
     let emailArray = [];
 
+
     await db.from('pending_tables_guests')
         .where("pending_tables_id", roomId)
         .then(async (data) => {
@@ -1180,8 +1168,10 @@ app.get('/places/:name', (req, res) => {
 
 //Complete table
 
-app.post("/complete_table/:name/:room", async (req, res) => {
+app.post("/complete_table/:name/:realName/:room", async (req, res) => {
     const uName = req.params.name;
+
+    const realName = req.params.realName;
 
     const roomId = req.params.room;
 
@@ -1193,6 +1183,10 @@ app.post("/complete_table/:name/:room", async (req, res) => {
         .where("pending_tables_id", roomId)
         .then(async (data) => {
             let info = data[0]
+
+            if (info.host_name == realName) {
+                nameArray.push(info.host_name)
+            }
 
 
             if (info.guest_1 !== null && info.guest_1 !== "not_available") {
@@ -1344,6 +1338,14 @@ app.post("/complete_table/:name/:room", async (req, res) => {
         html: tagArray[4]
     };
 
+    let mailOptions6 = {
+        from: `${process.env.EMAIL}`,
+        to: `${emailArray[5]}`,
+        subject: "👻  MuchM8 Confirmation 👻 ",
+        text: "✔ Hello, ",
+        html: tagArray[5]
+    };
+
 
     transporter.sendMail(mailOptions1, (error, info) => {
         if (error) {
@@ -1380,6 +1382,16 @@ app.post("/complete_table/:name/:room", async (req, res) => {
         console.log('Message sent: %s', info.messageId);
     });
 
+    transporter.sendMail(mailOptions6, (error, info) => {
+        if (error) {
+            return console.log(error);
+        };
+        console.log('Message sent: %s', info.messageId);
+    });
+
+
+    console.log(emailArray)
+    console.log(nameArray)
     res.redirect("back")
 
 
