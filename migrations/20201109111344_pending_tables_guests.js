@@ -4,7 +4,6 @@ exports.up = function(knex) {
         table.increments('id').primary().unsigned();
         
         table.integer('pending_tables_id').unsigned();
-        table.foreign('pending_tables_id').references('pending_tables.id');
         table.string('host_name').notNullable();
         table.string('guest_1');
         table.string('guest_2');
